@@ -7,277 +7,746 @@
 <title>Vishal Vaibhav Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Schibsted+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: single reading column; impact figures set as shelf-edge price labels; projects as case files with question, method, result and chart. */
+/* Layout: two columns on desktop. A fixed identity rail on the left (name, thesis, section nav, links), and a scrolling ledger on the right. Impact figures are shelf-edge price labels, charts sit on paper "plates", and projects can be filtered by skill. */
 :root {
-  --bg: #f6f8f7;
-  --surface: #ffffff;
-  --ink: #14211f;
-  --muted: #55625f;
-  --line: #d6dedb;
-  --accent: #0f6b5c;
-  --tag: #f2c94c;
-  --tag-ink: #1d1a0f;
-  --chart-bg: #ffffff;
-  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
-  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --bg: #0d1218;
+  --raise: #141b23;
+  --raise-2: #1a232d;
+  --ink: #e8edf2;
+  --muted: #93a1b0;
+  --faint: #5d6b79;
+  --line: #24303c;
+  --accent: #7fd6c2;
+  --accent-ink: #0d1218;
+  --tag: #f0c44c;
+  --tag-ink: #1c1708;
+  --plate: #f4f6f5;
+  --warn: #f2a07b;
+  --font-display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f1716; --surface: #16211f; --ink: #e4ece9; --muted: #9db0ab; --line: #2a3a37;
-    --accent: #5cc8b2; --tag: #e8c14a; --tag-ink: #1d1a0f; --chart-bg: #f3f6f5; color-scheme: dark;
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f3f5f4; --raise: #ffffff; --raise-2: #eef1f0; --ink: #121a21; --muted: #4f5d69; --faint: #7d8a95;
+    --line: #d5dcdf; --accent: #0b6e5e; --accent-ink: #ffffff; --tag: #f0c44c; --tag-ink: #1c1708;
+    --plate: #ffffff; --warn: #b4512b; color-scheme: light;
   }
 }
-:root[data-theme="dark"] {
-  --bg: #0f1716; --surface: #16211f; --ink: #e4ece9; --muted: #9db0ab; --line: #2a3a37;
-  --accent: #5cc8b2; --tag: #e8c14a; --tag-ink: #1d1a0f; --chart-bg: #f3f6f5; color-scheme: dark;
+:root[data-theme="light"] {
+  --bg: #f3f5f4; --raise: #ffffff; --raise-2: #eef1f0; --ink: #121a21; --muted: #4f5d69; --faint: #7d8a95;
+  --line: #d5dcdf; --accent: #0b6e5e; --accent-ink: #ffffff; --tag: #f0c44c; --tag-ink: #1c1708;
+  --plate: #ffffff; --warn: #b4512b; color-scheme: light;
 }
 * { box-sizing: border-box; }
-body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
-.wrap { max-width: 980px; margin: 0 auto; padding-inline: 20px; padding-block: 48px 64px; display: grid; gap: 72px; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 a { color: var(--accent); text-underline-offset: 3px; }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.15; }
-h2 { font-size: 1.75rem; font-weight: 700; }
-h3 { font-size: 1.2rem; font-weight: 700; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+h1, h2, h3, h4 { font-family: var(--font-display); margin: 0; line-height: 1.12; text-wrap: balance; }
 p { margin: 0; }
-.label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.section { display: grid; gap: 28px; }
-.section-head { display: grid; gap: 6px; }
+.skip { position: absolute; left: -9999px; top: 8px; background: var(--accent); color: var(--accent-ink); padding: 8px 12px; z-index: 10; }
+.skip:focus { left: 16px; }
+.mono { font-family: var(--font-mono); }
+.eyebrow { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 
-/* Hero */
-.hero { display: grid; gap: 22px; }
-.hero h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); font-weight: 700; letter-spacing: -0.02em; }
-.hero .role { font-family: var(--font-display); font-size: clamp(1.15rem, 2.6vw, 1.5rem); font-weight: 500; color: var(--accent); }
-.hero .lede { max-width: 62ch; font-size: 1.1rem; color: var(--ink); }
-.links { display: flex; flex-wrap: wrap; gap: 10px 22px; font-family: var(--font-mono); font-size: 0.9rem; }
+.shell { max-width: 1180px; margin: 0 auto; padding-inline: 24px; display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.45fr); gap: 72px; }
+
+/* Identity rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); height: 100vh; padding-block: 72px 40px; display: flex; flex-direction: column; gap: 28px; }
+.rail h1 { font-size: clamp(2.6rem, 4.6vw, 3.6rem); font-weight: 700; letter-spacing: -0.03em; }
+.rail .title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--ink); }
+.rail .thesis { color: var(--muted); max-width: 34ch; }
+.nav { display: grid; gap: 2px; margin-top: 8px; }
+.nav a { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--faint); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding-block: 7px; transition: color .2s; }
+.nav a::before { content: ""; height: 1px; width: 28px; background: currentColor; transition: width .25s; }
+.nav a:hover, .nav a.on { color: var(--ink); }
+.nav a:hover::before, .nav a.on::before { width: 60px; }
+.rail .foot { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; font-family: var(--font-mono); font-size: 0.8rem; }
+.rail .foot a { color: var(--muted); text-decoration: none; }
+.rail .foot a:hover { color: var(--accent); }
+.theme { background: none; border: 1px solid var(--line); color: var(--muted); font: inherit; padding: 5px 10px; border-radius: 999px; cursor: pointer; }
+.theme:hover { color: var(--ink); border-color: var(--muted); }
+.status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.status i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent); }
+
+/* Ledger */
+main { padding-block: 72px 96px; display: grid; gap: 112px; min-width: 0; }
+section { display: grid; gap: 28px; scroll-margin-top: 32px; min-width: 0; }
+.sec-h { display: flex; align-items: baseline; gap: 14px; }
+.sec-h h2 { font-size: 1.05rem; font-weight: 600; letter-spacing: 0.01em; }
+.sec-h .rule { flex: 1; height: 1px; background: var(--line); }
+.lead { font-size: 1.12rem; max-width: 62ch; color: var(--muted); }
+.lead b { color: var(--ink); font-weight: 600; }
+.about { display: grid; gap: 16px; }
 
 /* Shelf-edge labels */
-.tags { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-.tag { background: var(--tag); color: var(--tag-ink); padding: 14px 16px 12px; display: grid; gap: 4px; border-bottom: 6px solid rgba(0,0,0,0.18); }
-.tag .big { font-family: var(--font-display); font-size: 2.1rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
-.tag .what { font-size: 0.9rem; line-height: 1.4; }
-.tag .code { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; opacity: 0.75; }
+.tags { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.tag { background: var(--tag); color: var(--tag-ink); padding: 14px 16px 12px; display: grid; gap: 6px; position: relative; border-bottom: 6px solid rgba(0,0,0,.2); transform: rotate(0deg); transition: transform .25s; }
+.tag:hover { transform: translateY(-3px) rotate(-.6deg); }
+.tag .code { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; opacity: .7; display: flex; justify-content: space-between; }
+.tag .big { font-family: var(--font-display); font-size: 2.3rem; font-weight: 700; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.tag .what { font-size: 0.86rem; line-height: 1.4; }
+.tag .bars { height: 14px; background: repeating-linear-gradient(90deg, var(--tag-ink) 0 2px, transparent 2px 4px, var(--tag-ink) 4px 5px, transparent 5px 8px); opacity: .55; width: 70px; }
 
 /* Experience */
-.job { display: grid; grid-template-columns: 200px 1fr; gap: 8px 32px; padding-block: 24px; border-top: 1px solid var(--line); }
-.job:first-of-type { border-top: 0; padding-top: 0; }
-.job .when { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); }
-.job .body { display: grid; gap: 12px; min-width: 0; }
-.job .org { color: var(--muted); font-weight: 500; }
-.job ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; max-width: 70ch; }
+.jobs { display: grid; gap: 8px; }
+.job { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 6px 28px; padding: 22px; margin-inline: -22px; border-radius: 6px; transition: background .2s, opacity .2s; }
+.jobs:hover .job { opacity: .55; }
+.jobs .job:hover { opacity: 1; background: var(--raise); }
+.job .when { font-family: var(--font-mono); font-size: 0.75rem; color: var(--faint); padding-top: 4px; letter-spacing: 0.04em; }
+.job h3 { font-size: 1.15rem; font-weight: 600; }
+.job h3 span { color: var(--accent); }
+.job ul { margin: 10px 0 0; padding-left: 1.05em; display: grid; gap: 7px; color: var(--muted); }
+.job li::marker { color: var(--faint); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.chip { font-family: var(--font-mono); font-size: 0.7rem; padding: 3px 9px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
 
-/* Projects */
-.note { max-width: 70ch; color: var(--muted); }
-.projects { display: grid; gap: 22px; }
-.case { background: var(--surface); border: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
-.case .text { padding: 26px; display: grid; gap: 14px; align-content: start; min-width: 0; }
-.case .q { font-size: 1.02rem; }
-.case dl { margin: 0; display: grid; gap: 10px; }
-.case dt { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.case dd { margin: 0; }
-.case .result { font-weight: 600; }
-.case figure { margin: 0; background: var(--chart-bg); display: flex; align-items: center; justify-content: center; padding: 14px; border-left: 1px solid var(--line); }
-.case figure img { width: 100%; height: auto; display: block; }
-.stack { display: flex; flex-wrap: wrap; gap: 6px; }
-.stack span { font-family: var(--font-mono); font-size: 0.72rem; border: 1px solid var(--line); padding: 2px 8px; color: var(--muted); }
+/* Filters + projects */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filters button { font-family: var(--font-mono); font-size: 0.74rem; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; transition: all .2s; }
+.filters button:hover { color: var(--ink); border-color: var(--muted); }
+.filters button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.filters .count { margin-left: auto; font-family: var(--font-mono); font-size: 0.74rem; color: var(--faint); }
+.work { display: grid; gap: 18px; }
+.case { background: var(--raise); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: grid; transition: border-color .25s, transform .25s; }
+.case:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.case[hidden] { display: none !important; }
+.case .top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); }
+.case .txt { padding: 24px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.case .meta { display: flex; flex-wrap: wrap; gap: 6px 14px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--faint); letter-spacing: 0.06em; text-transform: uppercase; }
+.case .meta .work-tag { color: var(--warn); }
+.case h3 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; }
+.case .q { color: var(--muted); }
+.case .result { font-weight: 600; color: var(--ink); border-left: 2px solid var(--accent); padding-left: 12px; }
+.plate { margin: 0; background: var(--plate); display: flex; align-items: center; justify-content: center; padding: 14px; min-width: 0; filter: grayscale(.85); transition: filter .35s; }
+.case:hover .plate { filter: none; }
+.plate img { width: 100%; height: auto; display: block; }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.btn { font-family: var(--font-mono); font-size: 0.74rem; text-decoration: none; padding: 7px 12px; border-radius: 6px; border: 1px solid var(--line); color: var(--ink); background: var(--raise-2); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+details.study { border-top: 1px solid var(--line); }
+details.study summary { list-style: none; cursor: pointer; padding: 14px 24px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); display: flex; justify-content: space-between; }
+details.study summary::-webkit-details-marker { display: none; }
+details.study summary::after { content: "+"; font-size: 1rem; line-height: 1; }
+details.study[open] summary::after { content: "−"; }
+details.study summary:hover { color: var(--ink); }
+.study-body { padding: 4px 24px 26px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 28px; }
+.study-body div { display: grid; gap: 4px; min-width: 0; }
+.study-body h4 { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+.study-body p { color: var(--muted); font-size: 0.95rem; }
 
-/* Skills */
-.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 36px; }
-.skills div { display: grid; gap: 6px; min-width: 0; }
-.skills h3 { font-size: 1rem; }
-.skills p { color: var(--muted); }
-.edu { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px 36px; }
-.edu div { display: grid; gap: 6px; }
-.edu ul { margin: 0; padding-left: 1.1em; color: var(--muted); }
-footer { border-top: 1px solid var(--line); padding-top: 22px; color: var(--muted); font-size: 0.9rem; display: grid; gap: 6px; }
+/* Demos */
+.demos { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+.demo { background: var(--raise); border: 1px solid var(--line); border-radius: 8px; padding: 24px; display: grid; gap: 16px; min-width: 0; }
+.demo h3 { font-size: 1.2rem; }
+.demo .sub { color: var(--muted); font-size: 0.95rem; max-width: 64ch; }
+.price-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr); gap: 24px; align-items: center; }
+.ctrl { display: grid; gap: 16px; }
+.ctrl label { display: grid; gap: 6px; font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); }
+.ctrl label span b { color: var(--ink); font-weight: 500; }
+.ctrl input[type=range] { width: 100%; accent-color: var(--accent); }
+.readout { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+.readout div { background: var(--raise-2); border-radius: 6px; padding: 10px 12px; display: grid; gap: 2px; }
+.readout .k { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+.readout .v { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.readout .note { grid-column: 1 / -1; font-size: 0.82rem; color: var(--muted); background: none; padding: 0; }
+svg.curve { width: 100%; height: auto; display: block; }
+svg.curve text { fill: var(--faint); font-family: var(--font-mono); font-size: 10px; }
+svg.curve .grid { stroke: var(--line); stroke-width: 1; }
+svg.curve .band { fill: color-mix(in srgb, var(--accent) 12%, transparent); }
+svg.curve .line { fill: none; stroke: var(--accent); stroke-width: 2.4; }
+svg.curve .area { fill: color-mix(in srgb, var(--accent) 10%, transparent); }
+svg.curve .now { stroke: var(--muted); stroke-dasharray: 3 3; }
+svg.curve .opt { fill: var(--tag); stroke: var(--bg); stroke-width: 2; }
+svg.curve .opt-l { fill: var(--ink); font-size: 11px; }
 
-@media (max-width: 760px) {
-  .wrap { gap: 56px; padding-block: 32px 48px; padding-inline: 16px; }
-  .job { grid-template-columns: 1fr; }
-  .skills { grid-template-columns: 1fr; }
-  .case { grid-template-columns: 1fr; }
-  .case figure { border-left: 0; border-top: 1px solid var(--line); }
+.chat { display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; height: 520px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); overflow: hidden; }
+.chat .bar { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 0.9rem; font-weight: 600; }
+.chat .bar .dot { width: 26px; height: 26px; border-radius: 6px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.7rem; }
+.chat .bar small { font-weight: 400; color: var(--faint); font-family: var(--font-mono); font-size: 0.7rem; margin-left: auto; }
+.log { overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.msg { max-width: 88%; padding: 9px 12px; border-radius: 10px; font-size: 0.9rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.msg.bot { background: var(--raise-2); align-self: flex-start; border-bottom-left-radius: 2px; }
+.msg.me { background: var(--accent); color: var(--accent-ink); align-self: flex-end; border-bottom-right-radius: 2px; }
+.sess { display: grid; gap: 6px; margin-top: 8px; }
+.sess button { text-align: left; display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 10px; align-items: center; background: var(--raise); border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; color: var(--ink); font: inherit; font-size: 0.82rem; cursor: pointer; }
+.sess button:hover { border-color: var(--accent); }
+.sess .d { font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); text-align: center; line-height: 1.2; }
+.sess .d b { display: block; font-family: var(--font-display); font-size: 1rem; color: var(--ink); }
+.sess .s { font-family: var(--font-mono); font-size: 0.68rem; color: var(--faint); }
+.sess .s.low { color: var(--warn); }
+.sess .cert { color: var(--tag); font-family: var(--font-mono); font-size: 0.66rem; }
+.suggest { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px 0; }
+.suggest button { font-family: var(--font-mono); font-size: 0.7rem; border: 1px solid var(--line); background: transparent; color: var(--muted); padding: 5px 10px; border-radius: 999px; cursor: pointer; }
+.suggest button:hover { color: var(--accent); border-color: var(--accent); }
+.chat form { display: flex; gap: 8px; padding: 10px 14px 14px; }
+.chat input { flex: 1; min-width: 0; background: var(--raise); border: 1px solid var(--line); border-radius: 6px; color: var(--ink); padding: 9px 11px; font: inherit; font-size: 0.9rem; }
+.chat input:focus { outline: none; border-color: var(--accent); }
+.bot-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: 24px; align-items: start; }
+.how { display: grid; gap: 12px; color: var(--muted); font-size: 0.92rem; }
+.how ol { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+.how b { color: var(--ink); font-weight: 600; }
+
+/* Skills matrix */
+.matrix-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+.matrix th, .matrix td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: center; white-space: nowrap; }
+.matrix thead th { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); vertical-align: bottom; }
+.matrix tbody th { text-align: left; font-weight: 500; }
+.matrix tbody th button { all: unset; cursor: pointer; }
+.matrix tbody th button:hover { color: var(--accent); }
+.matrix tbody th button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.matrix tbody tr:last-child > * { border-bottom: 0; }
+.matrix tbody tr:hover { background: var(--raise); }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+.dot.core { background: var(--accent); }
+.dot.some { border: 1.5px solid var(--accent); }
+.legend { display: flex; gap: 18px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); align-items: center; flex-wrap: wrap; }
+.legend span { display: inline-flex; gap: 6px; align-items: center; }
+
+/* Index */
+.index th, .index td { padding: 12px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.index thead th { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); }
+.index td.y { font-family: var(--font-mono); color: var(--faint); font-size: 0.78rem; }
+.index td.p { font-weight: 600; }
+.index td.c, .index td.m { color: var(--muted); }
+.index tbody:hover tr { opacity: .5; }
+.index tbody tr:hover { opacity: 1; }
+.index tbody tr { transition: opacity .2s; }
+
+.certs { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+.cert-row { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 4px 14px; padding: 14px 16px; background: var(--raise); border: 1px solid var(--line); border-radius: 8px; }
+.cert-row .badge { grid-row: span 2; width: 38px; height: 38px; border-radius: 6px; display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.62rem; background: var(--raise-2); color: var(--accent); }
+.cert-row b { font-weight: 600; font-size: 0.95rem; }
+.cert-row span { font-family: var(--font-mono); font-size: 0.72rem; color: var(--faint); }
+.edu { display: grid; grid-template-columns: 130px minmax(0,1fr); gap: 6px 28px; }
+.edu .when { font-family: var(--font-mono); font-size: 0.75rem; color: var(--faint); padding-top: 3px; }
+.edu p { color: var(--muted); }
+
+.contact { display: grid; gap: 18px; }
+.contact h2.big { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.02em; font-weight: 700; }
+.contact .links { display: flex; flex-wrap: wrap; gap: 12px; }
+.colophon { font-size: 0.82rem; color: var(--faint); max-width: 62ch; }
+
+@media (max-width: 980px) {
+  .shell { grid-template-columns: 1fr; gap: 0; padding-inline: 16px; }
+  .rail { position: static; height: auto; padding-block: 40px 8px; }
+  .nav { display: none; }
+  .rail .foot { margin-top: 0; }
+  main { padding-block: 40px 72px; gap: 80px; }
+}
+@media (max-width: 720px) {
+  .tags { grid-template-columns: 1fr; }
+  .case .top, .price-grid, .bot-grid, .study-body, .certs { grid-template-columns: 1fr; }
+  .job, .edu { grid-template-columns: 1fr; }
+  .jobs:hover .job { opacity: 1; }
+  .filters .count { margin-left: 0; width: 100%; }
+  .chat { height: 500px; }
+  .index .m { display: none; }
 }
 </style>
 </head>
 <body>
-<main class="wrap">
-  <header class="hero">
-    <span class="label">Portfolio · Gurugram, India</span>
-    <h1>Vishal Vaibhav</h1>
-    <p class="role">Applied Data Scientist, customer &amp; retail data science</p>
-    <p class="lede">I build the models behind retail pricing, promotion and assortment decisions and take them into production across markets. My work covers causal measurement of promotions, price optimisation, customer segmentation and recommendations, with GenAI used to turn model output into decisions people act on.</p>
-    <nav class="links" aria-label="Profiles">
-      <a href="https://www.linkedin.com/in/vishal-vaibhav-634898155/">LinkedIn</a>
-      <a href="https://github.com/vishalvaibhav1210/portsume">GitHub · portsume</a>
-      <a href="#projects">Projects</a>
+<a class="skip" href="#content">Skip to content</a>
+<div class="shell">
+  <aside class="rail">
+    <span class="status"><i></i>Applied Data Scientist at dunnhumby</span>
+    <h1>Vishal<br>Vaibhav</h1>
+    <p class="title">Applied data science for retail pricing, promotions &amp; customers</p>
+    <p class="thesis">I turn shopper and sales data into the decisions retailers act on every week: what to price, what to promote, what to range, and who to talk to.</p>
+    <nav class="nav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Work</a>
+      <a href="#labs">Live demos</a>
+      <a href="#skills">Skills map</a>
+      <a href="#index">Index</a>
+      <a href="#contact">Contact</a>
     </nav>
-  </header>
+    <div class="foot">
+      <a href="https://www.linkedin.com/in/vishal-vaibhav-634898155/">LinkedIn ↗</a>
+      <a href="https://github.com/vishalvaibhav1210/portsume">GitHub ↗</a>
+      <span>Gurugram, IN</span>
+      <button class="theme" id="themeBtn" type="button" aria-label="Switch colour theme">Light / Dark</button>
+    </div>
+  </aside>
 
-  <section class="section" aria-labelledby="impact-h">
-    <div class="section-head">
-      <span class="label">At dunnhumby</span>
-      <h2 id="impact-h">Impact</h2>
-    </div>
-    <div class="tags">
-      <div class="tag"><span class="code">PROMO-OPT · SLA</span><span class="big">−70%</span><span class="what">delivery SLA after modularising the promotion-optimisation system</span></div>
-      <div class="tag"><span class="code">PRICE · INVEST</span><span class="big">Earlier</span><span class="what">scenario screening through incremental unit-impact logging</span></div>
-      <div class="tag"><span class="code">DEMAND · SPARK</span><span class="big">Multi-market</span><span class="what">demand-parameter precompute pipeline, run in-house</span></div>
-      <div class="tag"><span class="code">GENAI · BRIEFS</span><span class="big">LLM</span><span class="what">summaries that turn model output into executive decision briefs</span></div>
-    </div>
-  </section>
+  <main id="content">
+    <section id="about" aria-labelledby="about-h">
+      <div class="sec-h"><h2 id="about-h">About</h2><span class="rule"></span></div>
+      <div class="about">
+        <p class="lead">I'm an <b>Applied Data Scientist at dunnhumby</b>, where I own the technical side of price optimisation, promotion analytics and assortment planning solutions. I take models from a notebook into production for <b>multiple markets</b>, and I translate what commercial teams ask for into systems that make decisions.</p>
+        <p class="lead">My toolkit centres on <b>causal measurement, demand modelling and optimisation</b>, with modular ML pipelines on Spark and GenAI that turns model output into briefs executives read. Before dunnhumby I built a training-booking chatbot for my L&amp;D team, and I still build with the people who'll use the result in mind.</p>
+      </div>
+      <div class="tags" role="list">
+        <div class="tag" role="listitem"><span class="code"><span>PROMO-OPT</span><span>SLA</span></span><span class="big">−70%</span><span class="what">delivery SLA after modularising the promotion-optimisation system</span><span class="bars" aria-hidden="true"></span></div>
+        <div class="tag" role="listitem"><span class="code"><span>SOLUTIONS</span><span>OWNED</span></span><span class="big">4</span><span class="what">areas owned: pricing, promotions, assortment, recommendations</span><span class="bars" aria-hidden="true"></span></div>
+        <div class="tag" role="listitem"><span class="code"><span>L&amp;D BOT</span><span>LOAD</span></span><span class="big">0</span><span class="what">"system busy" errors after adding the bot's cache layer, down from 26% of messages in a re-created peak-load test</span><span class="bars" aria-hidden="true"></span></div>
+      </div>
+    </section>
 
-  <section class="section" aria-labelledby="exp-h">
-    <div class="section-head">
-      <span class="label">Experience</span>
-      <h2 id="exp-h">Where I've worked</h2>
-    </div>
-    <div>
-      <article class="job">
-        <div class="when">Nov 2023 – Present<br>Gurugram</div>
-        <div class="body">
-          <h3>Applied Data Scientist <span class="org">· dunnhumby</span></h3>
-          <p>Technical Solutions owner for price optimisation, promotion analytics and assortment planning. I own solution enhancements, production deployment and multi-market scaling, and I translate commercial requirements into decisioning systems.</p>
-          <ul>
-            <li>Modularised a promotion-optimisation system covering incremental sales, baseline, promo effect, stockpiling and cannibalisation. It now evaluates scenarios from weekly promo recommendations through category cross-effects to portfolio investment. Delivery SLA fell by 70%.</li>
-            <li>Added incremental unit-impact logging and runtime improvements to price and investment optimisation, so teams can screen scenarios before a full run completes.</li>
-            <li>Built a multi-market demand-parameter precompute pipeline with automated ingestion, Spark processing and modular ETL orchestration.</li>
-            <li>Embedded data validation into model input pipelines (time-window completeness, schema consistency, quality guardrails), which cut downstream QA rework.</li>
-            <li>Engineered a product recommendation engine that combines substitution and adjacency logic, topic modelling, customer segmentation and seasonal patterns for agentic commerce workflows.</li>
-            <li>Developed ML pipelines (Lasso, logistic regression, LDA) for promotion analytics and segmentation, with LLM summarisation of the results for executives.</li>
-          </ul>
+    <section id="experience" aria-labelledby="exp-h">
+      <div class="sec-h"><h2 id="exp-h">Experience</h2><span class="rule"></span></div>
+      <div class="jobs">
+        <article class="job">
+          <div class="when">NOV 2023 — NOW</div>
+          <div>
+            <h3>Applied Data Scientist · <span>dunnhumby</span></h3>
+            <ul>
+              <li>Modularised a promotion-optimisation system covering incremental sales, baseline, promo effect, stockpiling and cannibalisation. It runs from weekly promo recommendations through category cross-effects to portfolio investment, and its <b>delivery SLA fell by 70%</b>.</li>
+              <li>Added incremental unit-impact logging and runtime improvements to price and investment optimisation, so teams can screen scenarios before a full run completes.</li>
+              <li>Built a multi-market demand-parameter precompute pipeline on Spark with automated ingestion and modular ETL orchestration.</li>
+              <li>Engineered a product recommendation engine combining substitution and adjacency logic, topic modelling, segmentation and seasonality for agentic commerce workflows.</li>
+              <li>Built ML pipelines (Lasso, logistic regression, LDA) with LLM summaries that turn findings into executive decision briefs. Validation guardrails on model inputs cut downstream QA rework.</li>
+            </ul>
+            <div class="chips"><span class="chip">Price optimisation</span><span class="chip">Promo analytics</span><span class="chip">PySpark</span><span class="chip">Causal inference</span><span class="chip">LDA</span><span class="chip">GenAI</span></div>
+          </div>
+        </article>
+        <article class="job">
+          <div class="when">JAN — NOV 2023</div>
+          <div>
+            <h3>Manager, LMS &amp; Content · <span>Securitas Group</span></h3>
+            <ul>
+              <li>Designed and built a cloud chatbot on top of the LearnUpon LMS that always shows the next 30 days of live training and lets staff register, enrol and unenrol in a few messages.</li>
+              <li>Built the back-end caching layer that kept it responsive under API rate limits, projected to save hundreds of admin hours a year.</li>
+              <li>Analysed participation data and reported programme effectiveness to business leaders.</li>
+            </ul>
+            <div class="chips"><span class="chip">Node.js</span><span class="chip">Bot Framework</span><span class="chip">REST APIs</span><span class="chip">Caching</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="work" aria-labelledby="work-h">
+      <div class="sec-h"><h2 id="work-h">Selected work</h2><span class="rule"></span></div>
+      <p class="lead">Six projects, each built end to end. The L&amp;D bot is my own work product, re-created with mock data. The five retail projects are <b>independent work on a simulated grocery retailer</b>: 120 products, 104 weeks and 6,000 loyalty customers. Because the simulator knows the true answers, every method is scored against ground truth.</p>
+      <div class="filters" role="group" aria-label="Filter projects by skill">
+        <button type="button" data-f="all" aria-pressed="true">All</button>
+        <button type="button" data-f="pricing" aria-pressed="false">Pricing &amp; promo</button>
+        <button type="button" data-f="customer" aria-pressed="false">Customer</button>
+        <button type="button" data-f="causal" aria-pressed="false">Causal inference</button>
+        <button type="button" data-f="bayes" aria-pressed="false">Bayesian &amp; probabilistic</button>
+        <button type="button" data-f="ml" aria-pressed="false">Machine learning</button>
+        <button type="button" data-f="opt" aria-pressed="false">Optimisation</button>
+        <button type="button" data-f="eng" aria-pressed="false">Engineering &amp; bots</button>
+        <span class="count" id="count" aria-live="polite">6 of 6 projects</span>
+      </div>
+
+      <div class="work" id="workList">
+        <article class="case" data-tags="eng customer">
+          <div class="top">
+            <div class="txt">
+              <div class="meta"><span class="work-tag">Work project · Securitas</span><span>2023</span><span>Node.js</span></div>
+              <h3>L&amp;D training bot</h3>
+              <p class="q">How do you get thousands of staff onto the right live training without anyone opening the LMS?</p>
+              <p class="result">An always-on, rolling 30-day training calendar in chat, with register, enrol and unenrol. A shared cache cut API calls by 65% and kept "system busy" errors at zero at peak.</p>
+              <div class="btns"><a class="btn" href="#labs">Try the bot ↓</a><a class="btn" href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/ld-training-bot">Code ↗</a></div>
+            </div>
+            <figure class="plate"><svg viewBox="0 0 360 220" role="img" aria-label="Architecture: employees in Teams talk to the bot, which reads a 30-day session cache that refreshes from the LMS API" style="width:100%;height:auto">
+              <rect x="10" y="80" width="80" height="56" rx="6" fill="#e3f4ef" stroke="#0b6e5e"/><text x="50" y="104" text-anchor="middle" font-family="monospace" font-size="11" fill="#0b3b33">Staff in</text><text x="50" y="120" text-anchor="middle" font-family="monospace" font-size="11" fill="#0b3b33">Teams</text>
+              <rect x="128" y="80" width="90" height="56" rx="6" fill="#0b6e5e"/><text x="173" y="104" text-anchor="middle" font-family="monospace" font-size="11" fill="#ffffff">Bot</text><text x="173" y="120" text-anchor="middle" font-family="monospace" font-size="10" fill="#d7f1ea">intents</text>
+              <rect x="128" y="160" width="90" height="46" rx="6" fill="#f0c44c"/><text x="173" y="180" text-anchor="middle" font-family="monospace" font-size="10" fill="#1c1708">30-day cache</text><text x="173" y="195" text-anchor="middle" font-family="monospace" font-size="9" fill="#1c1708">stale-while-revalidate</text>
+              <rect x="258" y="80" width="92" height="56" rx="6" fill="#ffffff" stroke="#5d6b79"/><text x="304" y="104" text-anchor="middle" font-family="monospace" font-size="11" fill="#121a21">LMS API</text><text x="304" y="120" text-anchor="middle" font-family="monospace" font-size="9" fill="#4f5d69">rate-limited</text>
+              <line x1="90" y1="108" x2="126" y2="108" stroke="#4f5d69" stroke-width="1.5" marker-end="url(#ah)"/>
+              <line x1="173" y1="136" x2="173" y2="158" stroke="#4f5d69" stroke-width="1.5" marker-end="url(#ah)"/>
+              <line x1="218" y1="108" x2="256" y2="108" stroke="#4f5d69" stroke-width="1.5" marker-end="url(#ah)"/>
+              <path d="M218 183 C 300 183, 304 160, 304 138" fill="none" stroke="#4f5d69" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ah)"/>
+              <text x="236" y="98" font-family="monospace" font-size="9" fill="#4f5d69">book</text>
+              <text x="250" y="200" font-family="monospace" font-size="9" fill="#4f5d69">refresh</text>
+              <text x="18" y="40" font-family="monospace" font-size="10" fill="#4f5d69">1,200 msgs / day replay</text>
+              <text x="18" y="56" font-family="monospace" font-size="10" fill="#0b6e5e">API calls 1,192 → 416</text>
+              <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4f5d69"/></marker></defs>
+            </svg></figure>
+          </div>
+          <details class="study"><summary>Case study</summary>
+            <div class="study-body">
+              <div><h4>Problem</h4><p>Live sessions were buried in the LMS. People missed training, and admins spent their days booking seats by hand.</p></div>
+              <div><h4>My role</h4><p>Designed the conversation, built the bot and the integration, and ran the rollout with the L&amp;D team.</p></div>
+              <div><h4>Approach</h4><p>Intents for browse, certifications, register, cancel and my bookings, all from inside Teams. One shared, always-trimmed 30-day calendar is cached with stale-while-revalidate.</p></div>
+              <div><h4>Validation</h4><p>Four automated tests, plus a replay of 400 employees sending 1,200 messages around two reminder emails, with and without the cache.</p></div>
+              <div><h4>Result</h4><p>API calls fell from 1,192 to 416. "System busy" replies fell from 317 to 0, and more bookings went through.</p></div>
+              <div><h4>What's next</h4><p>Waitlists for full sessions, manager approvals, and LLM-based intent handling for free-text requests.</p></div>
+            </div>
+          </details>
+        </article>
+
+        <article class="case" data-tags="pricing causal ml">
+          <div class="top">
+            <div class="txt">
+              <div class="meta"><span>Independent</span><span>2026</span><span>Python</span></div>
+              <h3>Promotion uplift decomposition</h3>
+              <p class="q">A promotion sold 300 extra units. How many were genuinely new to the business?</p>
+              <p class="result">25% of gross promo volume isn't incremental. 82% of 1,488 promotions lose margin, and every depth beyond 10% off is negative on average.</p>
+              <div class="btns"><a class="btn" href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/promo-uplift">Code ↗</a></div>
+            </div>
+            <figure class="plate"><img src="assets/promo_waterfall.png" alt="Waterfall chart: gross promotional lift minus cannibalisation and pull-forward equals net incremental units"></figure>
+          </div>
+          <details class="study"><summary>Case study</summary>
+            <div class="study-body">
+              <div><h4>Problem</h4><p>Promotion plans are judged on gross uplift, which counts sales taken from sister products and from next week.</p></div>
+              <div><h4>Data</h4><p>120 products × 104 weeks with price, promo depth, display, out-of-stocks and seasonality.</p></div>
+              <div><h4>Approach</h4><p>A log-linear demand model per product with promo, display, post-promo dip and subcategory cannibalisation terms. Each event is split into gross, cannibalised, pulled-forward and net units, and margin also charges the subsidy on baseline units.</p></div>
+              <div><h4>Validation</h4><p>Holdout WAPE of 13.3%, against 30.6% for a naive mean. Recovered parameters correlate with the truth: cannibalisation r = 0.91, elasticity r = 0.78.</p></div>
+              <div><h4>Business read</h4><p>Shallow discounts with display support do the work. Deep cuts mostly buy volume the business already had.</p></div>
+              <div><h4>Limits</h4><p>Halo effects across categories aren't modelled yet. A hierarchical model would stabilise small products.</p></div>
+            </div>
+          </details>
+        </article>
+
+        <article class="case" data-tags="pricing bayes opt">
+          <div class="top">
+            <div class="txt">
+              <div class="meta"><span>Independent</span><span>2026</span><span>Python · SciPy</span></div>
+              <h3>Elasticity shrinkage &amp; price optimisation</h3>
+              <p class="q">Where can shelf prices move to grow margin without hurting revenue or price perception?</p>
+              <p class="result">Empirical-Bayes shrinkage cuts elasticity error from RMSE 5.96 to 0.37. The optimised plan earns +4.8% margin, 92% of the oracle.</p>
+              <div class="btns"><a class="btn" href="#labs">Play with elasticity ↓</a><a class="btn" href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/price-optimisation">Code ↗</a></div>
+            </div>
+            <figure class="plate"><img src="assets/elasticity_shrinkage.png" alt="Scatter plots of raw versus shrunk elasticity estimates against true elasticity"></figure>
+          </div>
+          <details class="study"><summary>Case study</summary>
+            <div class="study-body">
+              <div><h4>Problem</h4><p>Each product changes shelf price only a few times, so per-product elasticities are too noisy to price from.</p></div>
+              <div><h4>Approach</h4><p>OLS on clean regular-price weeks, then shrinkage toward the category mean weighted by each standard error, with a robust (MAD) between-product variance.</p></div>
+              <div><h4>Optimisation</h4><p>SLSQP per category: maximise margin with ±10% moves, revenue at least 99% of today and a price index of at most 1.02.</p></div>
+              <div><h4>Validation</h4><p>Every plan is scored on the simulator's true demand curves, not the model's own estimates.</p></div>
+              <div><h4>Result</h4><p>Raw estimates earn +3.9%, shrunk +4.8% and the oracle +5.3%.</p></div>
+              <div><h4>What's next</h4><p>Cross-price effects inside the optimiser, and a full hierarchical Bayesian fit.</p></div>
+            </div>
+          </details>
+        </article>
+
+        <article class="case" data-tags="customer bayes">
+          <div class="top">
+            <div class="txt">
+              <div class="meta"><span>Independent</span><span>2026</span><span>Python · MLE</span></div>
+              <h3>Customer lifetime value</h3>
+              <p class="q">Who will be worth the most over the next six months, and what will the base spend?</p>
+              <p class="result">BG/NBD + Gamma-Gamma written from scratch. Aggregate spend comes within 2.2%, against +182% for run-rate, and the top decile captures 62% of future spend.</p>
+              <div class="btns"><a class="btn" href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/customer-lifetime-value">Code ↗</a></div>
+            </div>
+            <figure class="plate"><img src="assets/clv_calibration.png" alt="Line chart of actual versus predicted holdout trips by customer frequency"></figure>
+          </div>
+          <details class="study"><summary>Case study</summary>
+            <div class="study-body">
+              <div><h4>Problem</h4><p>Retention and CRM budgets need a forward-looking value per customer, not past spend.</p></div>
+              <div><h4>Approach</h4><p>BG/NBD for purchase rate and silent churn, and Gamma-Gamma for spend per trip. Both log-likelihoods are maximised directly in SciPy.</p></div>
+              <div><h4>Validation</h4><p>78-week calibration and 26-week holdout. The holdout trip count is within 1.1% in aggregate.</p></div>
+              <div><h4>Result</h4><p>Spearman 0.71 against 0.41 for run-rate, which ignores churn and nearly triples the forecast.</p></div>
+            </div>
+          </details>
+        </article>
+
+        <article class="case" data-tags="customer ml">
+          <div class="top">
+            <div class="txt">
+              <div class="meta"><span>Independent</span><span>2026</span><span>scikit-learn</span></div>
+              <h3>Need-state segmentation with LDA</h3>
+              <p class="q">What missions do customers shop for, and how does each customer mix them?</p>
+              <p class="result">Five need states with 89% accuracy, and each customer's mission mix at r = 0.90, which K-means can't give. 54% of customers have a real second mission.</p>
+              <div class="btns"><a class="btn" href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/need-state-segmentation">Code ↗</a></div>
+            </div>
+            <figure class="plate"><img src="assets/need_states.png" alt="Heatmap of five need states across 24 subcategories"></figure>
+          </div>
+          <details class="study"><summary>Case study</summary>
+            <div class="study-body">
+              <div><h4>Problem</h4><p>Hard segments put each shopper in one box, which hides the cross-sell signal.</p></div>
+              <div><h4>Approach</h4><p>LDA on customer × subcategory counts, with topics named by Hungarian matching. K-means on shares is the baseline.</p></div>
+              <div><h4>Validation</h4><p>On dominant-state labels the two are level (ARI 0.74 each). LDA also recovers the mixes, with a mean absolute error of 0.076.</p></div>
+              <div><h4>Business read</h4><p>Target a shopper's second mission, for example Convenience shoppers who also stock up for the family.</p></div>
+            </div>
+          </details>
+        </article>
+
+        <article class="case" data-tags="causal opt">
+          <div class="top">
+            <div class="txt">
+              <div class="meta"><span>Independent</span><span>2026</span><span>Python</span></div>
+              <h3>Demand transfer for range reviews</h3>
+              <p class="q">If 15% of SKUs go, which can be delisted without losing the sales?</p>
+              <p class="result">Using out-of-stocks as natural experiments, a transfer-aware delist loses 19% less revenue than cutting the lowest sellers.</p>
+              <div class="btns"><a class="btn" href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/assortment-substitution">Code ↗</a></div>
+            </div>
+            <figure class="plate"><img src="assets/transfer_rates.png" alt="Scatter plot of estimated versus true demand transfer rates"></figure>
+          </div>
+          <details class="study"><summary>Case study</summary>
+            <div class="study-body">
+              <div><h4>Problem</h4><p>"Cut the tail" removes products whose shoppers have nowhere else to go.</p></div>
+              <div><h4>Approach</h4><p>In 254 out-of-stock weeks, compare sibling over-performance with the missing product's expected sales. Rates are shrunk toward the subcategory.</p></div>
+              <div><h4>Result</h4><p>Revenue lost falls from 2.17% to 1.76%, against 1.45% for the oracle, which closes 57% of the gap.</p></div>
+              <div><h4>Limits</h4><p>Chain-level data is noisy per product. Customer-level switching from loyalty data is the next step.</p></div>
+            </div>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section id="labs" aria-labelledby="labs-h">
+      <div class="sec-h"><h2 id="labs-h">Live demos</h2><span class="rule"></span></div>
+      <div class="demos">
+        <div class="demo">
+          <span class="eyebrow">L&amp;D training bot · re-created with mock courses</span>
+          <h3>Book a training session</h3>
+          <div class="bot-grid">
+            <div class="chat">
+              <div class="bar"><span class="dot">LD</span>Training Assistant<small id="windowLbl"></small></div>
+              <div class="log" id="log" aria-live="polite"></div>
+              <div class="suggest" id="suggest"></div>
+              <form id="chatForm"><input id="chatInput" autocomplete="off" placeholder="Try: show certifications" aria-label="Message the training bot"><button class="btn" type="submit">Send</button></form>
+            </div>
+            <div class="how">
+              <p><b>How it works.</b> This is the same logic as the code on GitHub, running in your browser.</p>
+              <ol>
+                <li>The calendar is always <b>today + 30 days</b>, and is re-trimmed on every reply so past sessions never show.</li>
+                <li>Tap a session to <b>register</b>. Seats update straight away without a refetch.</li>
+                <li>Say <b>"my bookings"</b> or <b>"cancel S-0004"</b> to <b>unenrol</b>.</li>
+                <li><b>"Show certifications"</b> filters to certification sessions only.</li>
+              </ol>
+            </div>
+          </div>
         </div>
-      </article>
-      <article class="job">
-        <div class="when">Jan 2023 – Nov 2023<br>Gurugram</div>
-        <div class="body">
-          <h3>Manager, LMS &amp; Content <span class="org">· Securitas Group</span></h3>
-          <ul>
-            <li>Built a chatbot (Node.js, Microsoft Bot Framework) on the LearnUpon API for on-demand training discovery and registration.</li>
-            <li>Designed a back-end caching layer that works around API rate limits, projected to save hundreds of admin hours a year.</li>
-            <li>Analysed participation data and built reporting on programme effectiveness.</li>
-          </ul>
+
+        <div class="demo">
+          <span class="eyebrow">Pricing · the maths behind the optimiser</span>
+          <h3>Find the margin-maximising price</h3>
+          <p class="sub">Demand follows q = q₀ · (p / p₀)<sup>ε</sup>. Move the elasticity and unit cost and watch where margin peaks. The shaded band is the ±10% guardrail the optimiser respects.</p>
+          <div class="price-grid">
+            <div class="ctrl">
+              <label for="eps"><span>Price elasticity ε = <b id="epsV">−2.0</b></span><input id="eps" type="range" min="-4" max="-1.2" step="0.1" value="-2"></label>
+              <label for="cost"><span>Unit cost as % of current price = <b id="costV">60%</b></span><input id="cost" type="range" min="30" max="85" step="1" value="60"></label>
+              <div class="readout">
+                <div><span class="k">Best price</span><span class="v" id="pBest">—</span></div>
+                <div><span class="k">Within guardrail</span><span class="v" id="pGuard">—</span></div>
+                <div><span class="k">Margin uplift</span><span class="v" id="mUp">—</span></div>
+                <div><span class="k">Volume change</span><span class="v" id="qUp">—</span></div>
+                <p class="note" id="pNote"></p>
+              </div>
+            </div>
+            <svg class="curve" id="curve" viewBox="0 0 420 260" role="img" aria-label="Margin against price"></svg>
+          </div>
         </div>
-      </article>
-    </div>
-  </section>
+      </div>
+    </section>
 
-  <section class="section" id="projects" aria-labelledby="proj-h">
-    <div class="section-head">
-      <span class="label">Independent projects</span>
-      <h2 id="proj-h">Retail data science, end to end</h2>
-    </div>
-    <p class="note">Five personal projects on a simulated grocery retailer: 120 products, 104 weeks and 6,000 loyalty customers. The data is synthetic and none of this is client work. Because the simulator knows the true elasticities, churn and transfer rates, every method is checked against ground truth as well as a holdout. All code is <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects">on GitHub</a> and reproduces these numbers exactly.</p>
+    <section id="skills" aria-labelledby="skills-h">
+      <div class="sec-h"><h2 id="skills-h">Skills map</h2><span class="rule"></span></div>
+      <p class="lead">Where each skill is actually used. Tap a skill to filter the projects above.</p>
+      <div class="legend"><span><i class="dot core"></i>Core to the work</span><span><i class="dot some"></i>Used</span></div>
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead><tr><th scope="col">Skill</th><th scope="col">dunnhumby</th><th scope="col">L&amp;D bot</th><th scope="col">Promo</th><th scope="col">Pricing</th><th scope="col">CLV</th><th scope="col">Need states</th><th scope="col">Range</th></tr></thead>
+          <tbody id="matrixBody"></tbody>
+        </table>
+      </div>
+    </section>
 
-    <div class="projects">
-      <article class="case">
-        <div class="text">
-          <span class="label">Promotions</span>
-          <h3>Promotion uplift decomposition</h3>
-          <p class="q">A promotion sold 300 extra units. How many were genuinely new to the business?</p>
-          <dl>
-            <div><dt>Method</dt><dd>Per-product log-linear demand model with seasonality, price, promo, display, post-promo dip and cannibalisation terms. Each of 1,488 promotions is split into gross lift, cannibalised, pulled-forward and net units.</dd></div>
-            <div><dt>Result</dt><dd class="result">25% of gross promo volume isn't incremental. 82% of promotions lose margin, and every depth beyond 10% off is margin-negative on average.</dd></div>
-          </dl>
-          <div class="stack"><span>ridge regression</span><span>causal decomposition</span><span>WAPE 13.3%</span></div>
-          <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/promo-uplift">Code and write-up</a>
-        </div>
-        <figure><img src="assets/promo_waterfall.png" alt="Waterfall chart: gross promotional lift reduced by cannibalisation and pull-forward to net incremental units"></figure>
-      </article>
+    <section id="index" aria-labelledby="index-h">
+      <div class="sec-h"><h2 id="index-h">Index</h2><span class="rule"></span></div>
+      <div class="matrix-wrap">
+        <table class="index">
+          <thead><tr><th scope="col">Year</th><th scope="col">Project</th><th scope="col">Context</th><th scope="col" class="m">Methods</th><th scope="col">Link</th></tr></thead>
+          <tbody>
+            <tr><td class="y">2026</td><td class="p">Demand transfer for range reviews</td><td class="c">Independent</td><td class="m">Natural experiments, shrinkage</td><td><a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/assortment-substitution">Code ↗</a></td></tr>
+            <tr><td class="y">2026</td><td class="p">Need-state segmentation</td><td class="c">Independent</td><td class="m">LDA, K-means, Hungarian matching</td><td><a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/need-state-segmentation">Code ↗</a></td></tr>
+            <tr><td class="y">2026</td><td class="p">Customer lifetime value</td><td class="c">Independent</td><td class="m">BG/NBD, Gamma-Gamma, MLE</td><td><a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/customer-lifetime-value">Code ↗</a></td></tr>
+            <tr><td class="y">2026</td><td class="p">Elasticity &amp; price optimisation</td><td class="c">Independent</td><td class="m">Empirical Bayes, SLSQP</td><td><a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/price-optimisation">Code ↗</a></td></tr>
+            <tr><td class="y">2026</td><td class="p">Promotion uplift decomposition</td><td class="c">Independent</td><td class="m">Ridge, causal decomposition</td><td><a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/promo-uplift">Code ↗</a></td></tr>
+            <tr><td class="y">2023</td><td class="p">L&amp;D training bot</td><td class="c">Securitas</td><td class="m">Node.js, Bot Framework, caching</td><td><a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/ld-training-bot">Code ↗</a></td></tr>
+          </tbody>
+        </table>
+      </div>
 
-      <article class="case">
-        <div class="text">
-          <span class="label">Pricing</span>
-          <h3>Elasticity shrinkage and price optimisation</h3>
-          <p class="q">Where can shelf prices move to grow margin without hurting revenue or price perception?</p>
-          <dl>
-            <div><dt>Method</dt><dd>Per-product elasticities from regular-price weeks, shrunk toward category means with empirical Bayes. SLSQP then optimises within ±10% price moves, a revenue floor and a price-index cap, and the plan is scored against true demand.</dd></div>
-            <div><dt>Result</dt><dd class="result">Elasticity error falls from RMSE 5.96 to 0.37. The plan earns +4.8% margin, 92% of what perfect knowledge would deliver.</dd></div>
-          </dl>
-          <div class="stack"><span>empirical Bayes</span><span>constrained optimisation</span><span>scipy</span></div>
-          <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/price-optimisation">Code and write-up</a>
-        </div>
-        <figure><img src="assets/elasticity_shrinkage.png" alt="Two scatter plots comparing raw and shrunk elasticity estimates against true elasticity"></figure>
-      </article>
+      <div class="sec-h" style="margin-top:28px"><h2>Certifications &amp; education</h2><span class="rule"></span></div>
+      <div class="certs">
+        <div class="cert-row"><span class="badge">DL.AI</span><b>Supervised Machine Learning: Regression and Classification</b><span>DeepLearning.AI · Oct 2025</span></div>
+        <div class="cert-row"><span class="badge">CRS</span><b>Linear Regression with Python</b><span>Coursera · Oct 2025</span></div>
+        <div class="cert-row"><span class="badge">CRS</span><b>COVID19 Data Analysis Using Python</b><span>Coursera · Oct 2025</span></div>
+        <div class="cert-row"><span class="badge">CRS</span><b>Python Project for Data Science</b><span>Coursera · Sep 2025</span></div>
+        <div class="cert-row"><span class="badge">PY</span><b>Python for Data Science, AI &amp; Development</b><span>Certification</span></div>
+      </div>
+      <div class="edu">
+        <div class="when">2017 — 2021</div>
+        <div><h3 style="font-size:1.05rem">Birla Institute of Technology, Mesra</h3><p>B.E., 83.9%, First Class with Distinction</p></div>
+      </div>
+    </section>
 
-      <article class="case">
-        <div class="text">
-          <span class="label">Customer value</span>
-          <h3>Customer lifetime value</h3>
-          <p class="q">Who will be worth the most over the next six months, and what will the whole base spend?</p>
-          <dl>
-            <div><dt>Method</dt><dd>BG/NBD for purchase rate and silent churn, plus Gamma-Gamma for spend, both fitted by maximum likelihood from scratch. Trained on 78 weeks and tested on the next 26.</dd></div>
-            <div><dt>Result</dt><dd class="result">Aggregate spend forecast within 2.2%, against +182% for a run-rate baseline. The top decile captures 62% of future spend.</dd></div>
-          </dl>
-          <div class="stack"><span>BG/NBD</span><span>Gamma-Gamma</span><span>MLE</span></div>
-          <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/customer-lifetime-value">Code and write-up</a>
-        </div>
-        <figure><img src="assets/clv_calibration.png" alt="Line chart of actual versus predicted holdout trips by calibration frequency"></figure>
-      </article>
+    <section id="contact" class="contact" aria-labelledby="contact-h">
+      <span class="eyebrow">Contact</span>
+      <h2 class="big" id="contact-h">Working on pricing, promotions or customer data? Let's talk.</h2>
+      <div class="links">
+        <a class="btn" href="https://www.linkedin.com/in/vishal-vaibhav-634898155/">Message on LinkedIn ↗</a>
+        <a class="btn" href="https://github.com/vishalvaibhav1210/portsume">See the code ↗</a>
+      </div>
+      <p class="colophon">Set in Familjen Grotesk, Schibsted Grotesk and JetBrains Mono. Hand-built HTML and CSS with no framework. The demos run the same logic as the code in the repo. The retail projects use synthetic data, and none of them is client work.</p>
+    </section>
+  </main>
+</div>
 
-      <article class="case">
-        <div class="text">
-          <span class="label">Customer understanding</span>
-          <h3>Need-state segmentation with LDA</h3>
-          <p class="q">What missions do customers shop for, and how does each customer mix them?</p>
-          <dl>
-            <div><dt>Method</dt><dd>Latent Dirichlet Allocation over customer × subcategory purchases, compared with K-means and checked against the true need states.</dd></div>
-            <div><dt>Result</dt><dd class="result">Recovers five need states with 89% accuracy, and each customer's mission mix at r = 0.90, which hard clustering can't give. 54% of customers have a meaningful second mission.</dd></div>
-          </dl>
-          <div class="stack"><span>topic modelling</span><span>segmentation</span><span>scikit-learn</span></div>
-          <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/need-state-segmentation">Code and write-up</a>
-        </div>
-        <figure><img src="assets/need_states.png" alt="Heatmap of five need states against 24 subcategories"></figure>
-      </article>
+<script>
+(() => {
+  // Theme toggle (remembered per viewer when storage is available).
+  const root = document.documentElement;
+  const saved = (() => { try { return localStorage.getItem("vv-theme"); } catch { return null; } })();
+  if (saved) root.setAttribute("data-theme", saved);
+  document.getElementById("themeBtn").addEventListener("click", () => {
+    const cur = root.getAttribute("data-theme") || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    const next = cur === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("vv-theme", next); } catch {}
+  });
 
-      <article class="case">
-        <div class="text">
-          <span class="label">Assortment</span>
-          <h3>Demand transferability for range reviews</h3>
-          <p class="q">If 15% of SKUs go, which can be delisted without losing the sales?</p>
-          <dl>
-            <div><dt>Method</dt><dd>Out-of-stock weeks used as natural experiments to measure how much demand moves to sibling products, with shrinkage toward subcategory rates. Delist choices are scored with true transfer.</dd></div>
-            <div><dt>Result</dt><dd class="result">A transfer-aware delist loses 19% less revenue than cutting the lowest sellers, closing 57% of the gap to the oracle.</dd></div>
-          </dl>
-          <div class="stack"><span>natural experiments</span><span>demand transfer</span><span>range review</span></div>
-          <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/assortment-substitution">Code and write-up</a>
-        </div>
-        <figure><img src="assets/transfer_rates.png" alt="Scatter plot of estimated versus true demand transfer rates"></figure>
-      </article>
-    </div>
-  </section>
+  // Active section in the rail nav.
+  const links = [...document.querySelectorAll(".nav a")];
+  const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id));
+  }), { rootMargin: "-35% 0px -60% 0px" });
+  secs.forEach(s => s && io.observe(s));
 
-  <section class="section" aria-labelledby="skills-h">
-    <div class="section-head">
-      <span class="label">Toolkit</span>
-      <h2 id="skills-h">Skills</h2>
-    </div>
-    <div class="skills">
-      <div><h3>Retail &amp; customer science</h3><p>Price and promotion optimisation, causal inference, demand forecasting, customer lifetime value, segmentation, recommendation systems, assortment planning</p></div>
-      <div><h3>Machine learning</h3><p>Regression and classification (Lasso, logistic), topic modelling (LDA), unsupervised learning, empirical Bayes, feature engineering</p></div>
-      <div><h3>Data engineering</h3><p>Python, SQL, PySpark, pandas, NumPy; ETL, workflow orchestration, modular and config-driven systems, data validation, logging and monitoring</p></div>
-      <div><h3>GenAI</h3><p>LLM summarisation of model output, agentic commerce workflows, conversational bots (Node.js, Microsoft Bot Framework, Oracle Digital Assistant)</p></div>
-    </div>
-  </section>
+  // Project filters.
+  const cases = [...document.querySelectorAll("#workList .case")];
+  const btns = [...document.querySelectorAll(".filters button")];
+  const count = document.getElementById("count");
+  function filter(f) {
+    btns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.f === f)));
+    let n = 0;
+    cases.forEach(c => { const show = f === "all" || c.dataset.tags.split(" ").includes(f); c.hidden = !show; if (show) n++; });
+    count.textContent = `${n} of ${cases.length} projects`;
+  }
+  btns.forEach(b => b.addEventListener("click", () => filter(b.dataset.f)));
 
-  <section class="section" aria-labelledby="edu-h">
-    <div class="section-head">
-      <span class="label">Background</span>
-      <h2 id="edu-h">Education &amp; certifications</h2>
-    </div>
-    <div class="edu">
-      <div><h3>Birla Institute of Technology, Mesra</h3><p>B.E. Mechanical Engineering, 2017 – 2021<br>83.9%, First Class with Distinction</p></div>
-      <div><h3>Certifications</h3><ul><li>Supervised Machine Learning: Regression and Classification</li><li>Python for Data Science, AI &amp; Development</li><li>Python Project for Data Science</li><li>Linear Regression with Python</li></ul></div>
-    </div>
-  </section>
+  // Skills matrix: 2 = core, 1 = used. Columns: dunnhumby, bot, promo, pricing, clv, needs, range.
+  const M = [
+    ["Causal inference", "causal", [2,0,2,1,0,0,2]],
+    ["Demand & price modelling", "pricing", [2,0,2,2,0,0,1]],
+    ["Bayesian & probabilistic models", "bayes", [0,0,0,2,2,1,1]],
+    ["Optimisation", "opt", [2,0,0,2,0,0,2]],
+    ["Machine learning & topic models", "ml", [2,0,1,0,0,2,0]],
+    ["Customer analytics", "customer", [1,1,0,0,2,2,0]],
+    ["Data pipelines & Spark", "eng", [2,0,1,1,1,1,1]],
+    ["APIs, bots & caching", "eng", [0,2,0,0,0,0,0]],
+    ["GenAI / LLM", "eng", [2,1,0,0,0,0,0]],
+    ["Testing & reproducibility", "eng", [1,2,2,2,2,2,2]],
+  ];
+  const body = document.getElementById("matrixBody");
+  M.forEach(([name, f, cols]) => {
+    const tr = document.createElement("tr");
+    const th = document.createElement("th"); th.scope = "row";
+    const b = document.createElement("button"); b.type = "button"; b.textContent = name;
+    b.addEventListener("click", () => { filter(f); document.getElementById("work").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); });
+    th.appendChild(b); tr.appendChild(th);
+    cols.forEach(v => { const td = document.createElement("td"); td.innerHTML = v === 2 ? '<i class="dot core" title="Core"></i>' : v === 1 ? '<i class="dot some" title="Used"></i>' : ""; tr.appendChild(td); });
+    body.appendChild(tr);
+  });
 
-  <footer>
-    <p>Vishal Vaibhav · Applied Data Scientist · Gurugram, India</p>
-    <p>Projects are independent work on synthetic data. Experience reflects my own roles; client details are not shared.</p>
-  </footer>
-</main>
+  // Pricing demo.
+  const eps = document.getElementById("eps"), cost = document.getElementById("cost"), svg = document.getElementById("curve");
+  const W = 420, H = 260, L = 44, R = 14, T = 16, B = 34;
+  const pMin = 0.6, pMax = 1.8;
+  const x = p => L + (p - pMin) / (pMax - pMin) * (W - L - R);
+  const fmtPct = v => (v >= 0 ? "+" : "−") + Math.abs(v * 100).toFixed(1) + "%";
+  function draw() {
+    const e = +eps.value, c = +cost.value / 100;
+    document.getElementById("epsV").textContent = "−" + Math.abs(e).toFixed(1);
+    document.getElementById("costV").textContent = cost.value + "%";
+    const m = p => Math.pow(p, e) * (p - c); // margin per unit of base demand, p relative to current
+    const pts = []; let maxM = 0;
+    for (let i = 0; i <= 120; i++) { const p = pMin + (pMax - pMin) * i / 120; const v = m(p); pts.push([p, v]); maxM = Math.max(maxM, v); }
+    const yMax = maxM * 1.15, y = v => T + (1 - Math.max(v, 0) / yMax) * (H - T - B);
+    const pStar = c * e / (1 + e);
+    const pG = Math.min(1.1, Math.max(0.9, pStar));
+    const base = m(1);
+    let g = "";
+    for (let i = 0; i <= 4; i++) { const v = yMax * i / 4; g += `<line class="grid" x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/>`; }
+    [0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8].forEach(p => g += `<text x="${x(p)}" y="${H - 14}" text-anchor="middle">${p === 1 ? "today" : (p * 100 - 100 > 0 ? "+" : "") + Math.round(p * 100 - 100) + "%"}</text>`);
+    g += `<text x="${L - 8}" y="${T + 8}" text-anchor="end">margin</text>`;
+    g += `<rect class="band" x="${x(0.9)}" y="${T}" width="${x(1.1) - x(0.9)}" height="${H - T - B}"/>`;
+    const path = pts.map(([p, v], i) => `${i ? "L" : "M"}${x(p).toFixed(1)},${y(v).toFixed(1)}`).join("");
+    g += `<path class="area" d="${path}L${x(pMax)},${y(0)}L${x(pMin)},${y(0)}Z"/><path class="line" d="${path}"/>`;
+    g += `<line class="now" x1="${x(1)}" x2="${x(1)}" y1="${T}" y2="${H - B}"/>`;
+    const inView = pStar <= pMax;
+    if (inView) g += `<circle class="opt" cx="${x(pStar)}" cy="${y(m(pStar))}" r="6"/><text class="opt-l" x="${Math.min(x(pStar) + 9, W - 70)}" y="${y(m(pStar)) - 9}">best price</text>`;
+    g += `<circle class="opt" cx="${x(pG)}" cy="${y(m(pG))}" r="4.5" style="fill:var(--accent)"/>`;
+    svg.innerHTML = g;
+    document.getElementById("pBest").textContent = fmtPct(pStar - 1);
+    document.getElementById("pGuard").textContent = fmtPct(pG - 1);
+    document.getElementById("mUp").textContent = fmtPct(m(pG) / base - 1);
+    document.getElementById("qUp").textContent = fmtPct(Math.pow(pG, e) - 1);
+    document.getElementById("pNote").textContent = pStar > 1.1 ? "The unconstrained optimum is above the guardrail, so the plan stops at +10% to protect price perception."
+      : pStar < 0.9 ? "Demand is elastic enough that a price cut pays. The guardrail caps it at −10%."
+      : "The optimum sits inside the guardrail, so the plan takes it as is.";
+  }
+  eps.addEventListener("input", draw); cost.addEventListener("input", draw); draw();
+
+  // Training bot demo: same logic as projects/ld-training-bot, in the browser.
+  const DAY = 864e5;
+  const COURSES = [["Security Awareness Essentials","course"],["Conflict De-escalation","course"],["First Aid at Work","certification"],["Fire Marshal","certification"],["Leading Remote Teams","course"],["Data Protection (GDPR) Refresher","course"],["Health & Safety Supervisor","certification"]];
+  let s = 7; const rnd = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const sessions = []; let n = 1;
+  for (let d = 1; d <= 45; d++) for (const [title, type] of COURSES) if (rnd() < 0.08) {
+    const at = new Date(today.getTime() + d * DAY); at.setHours([9, 11, 14, 16][Math.floor(rnd() * 4)], 30);
+    sessions.push({ id: "S-" + String(n++).padStart(4, "0"), title, type, at, seats: 12 + Math.floor(rnd() * 13), booked: 6 + Math.floor(rnd() * 10), mode: rnd() < .6 ? "Virtual" : "Classroom" });
+  }
+  const mine = new Set();
+  const windowNow = () => { const from = Date.now(); return sessions.filter(x => x.at >= from && x.at < from + 30 * DAY); };
+  const until = new Date(Date.now() + 30 * DAY);
+  document.getElementById("windowLbl").textContent = "next 30 days · to " + until.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  const log = document.getElementById("log"), sug = document.getElementById("suggest");
+  const esc = t => t.replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+  function say(who, text, list) {
+    const div = document.createElement("div"); div.className = "msg " + who; div.textContent = text;
+    if (list && list.length) {
+      const wrap = document.createElement("div"); wrap.className = "sess";
+      list.forEach(x => {
+        const b = document.createElement("button"); b.type = "button";
+        const left = x.seats - x.booked;
+        b.innerHTML = `<span class="d">${x.at.toLocaleDateString("en-GB", { weekday: "short" })}<b>${x.at.getDate()}</b>${x.at.toLocaleDateString("en-GB", { month: "short" })}</span><span>${esc(x.title)}${x.type === "certification" ? ' <span class="cert">CERT</span>' : ""}<br><span class="s">${x.id} · ${x.at.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })} · ${x.mode}</span></span><span class="s ${left <= 3 ? "low" : ""}">${left <= 0 ? "full" : left + " left"}</span>`;
+        b.addEventListener("click", () => send((mine.has(x.id) ? "cancel " : "register ") + x.id));
+        wrap.appendChild(b);
+      });
+      div.appendChild(wrap);
+    }
+    log.appendChild(div); log.scrollTop = log.scrollHeight;
+  }
+  function chips(list) { sug.innerHTML = ""; list.forEach(t => { const b = document.createElement("button"); b.type = "button"; b.textContent = t; b.addEventListener("click", () => send(t)); sug.appendChild(b); }); }
+  function reply(text) {
+    const id = (text.match(/S-\d{4}/i) || [""])[0].toUpperCase();
+    const sess = sessions.find(x => x.id === id);
+    const when = x => x.at.toLocaleString("en-GB", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+    if (/\b(unenrol+|cancel|withdraw|drop)\b/i.test(text)) {
+      if (!id) { const m = sessions.filter(x => mine.has(x.id)); return m.length ? ["Which booking should I cancel? Tap one.", m, ["My bookings"]] : ["You have no bookings to cancel.", null, ["Show upcoming training"]]; }
+      if (!mine.has(id)) return [`You don't have a booking for ${id}.`, null, ["My bookings"]];
+      mine.delete(id); sess.booked--; return [`Done. Your place on ${sess.title} is released.`, null, ["Show upcoming training", "My bookings"]];
+    }
+    if (/\b(enrol+|register|book|join|sign me up)\b/i.test(text)) {
+      if (!sess) return ["Which session? Tap one below.", windowNow().slice(0, 5), ["Show certifications"]];
+      if (mine.has(id)) return [`You're already booked on ${id}.`, null, ["My bookings"]];
+      if (sess.booked >= sess.seats) return [`${sess.title} on ${when(sess)} is full. Here are other dates:`, windowNow().filter(x => x.title === sess.title && x.booked < x.seats), []];
+      sess.booked++; mine.add(id); return [`You're booked on ${sess.title}, ${when(sess)}. A calendar invite is on its way.`, null, [`Cancel ${id}`, "My bookings", "Show certifications"]];
+    }
+    if (/\bmy (trainings?|courses?|bookings?|enrol+ments?)\b/i.test(text)) {
+      const m = sessions.filter(x => mine.has(x.id));
+      return m.length ? ["Your bookings (tap to cancel):", m, ["Show upcoming training"]] : ["You have no bookings yet.", null, ["Show upcoming training", "Show certifications"]];
+    }
+    if (/\bcert/i.test(text)) { const c = windowNow().filter(x => x.type === "certification"); return [`${c.length} certification sessions in the next 30 days:`, c.slice(0, 6), ["Show upcoming training", "My bookings"]]; }
+    if (/\b(show|list|what|upcoming|available|calendar|trainings?|courses?|sessions?|next)\b/i.test(text)) {
+      const w = windowNow(); return [`${w.length} live sessions in the next 30 days. The soonest:`, w.slice(0, 6), ["Show certifications", "My bookings"]];
+    }
+    if (/\b(hi|hello|hey|help|start)\b/i.test(text)) return ["Hi! I can show live training for the next 30 days, book you in, or cancel a booking.", null, ["Show upcoming training", "Show certifications", "My bookings"]];
+    return ["Sorry, I didn't catch that. Try “show training”, “register S-0003” or “my bookings”.", null, ["Show upcoming training"]];
+  }
+  function send(text) { if (!text.trim()) return; say("me", text); const [t, list, next] = reply(text); setTimeout(() => { say("bot", t, list); if (next) chips(next); }, 220); }
+  document.getElementById("chatForm").addEventListener("submit", ev => { ev.preventDefault(); const i = document.getElementById("chatInput"); send(i.value); i.value = ""; });
+  say("bot", "Hi! I'm the training assistant. I always show live sessions for the next 30 days.");
+  const [t0, l0] = reply("show training"); say("bot", t0, l0);
+  chips(["Show certifications", "My bookings", "Help"]);
+})();
+</script>
 </body>
 </html>

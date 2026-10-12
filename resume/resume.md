@@ -41,7 +41,8 @@ Technical Solutions owners team for price optimization, promotion analytics and 
 
 ## Certifications
 
-- Supervised Machine Learning: Regression and Classification
+- Supervised Machine Learning: Regression and Classification · DeepLearning.AI, Oct 2025
+- Linear Regression with Python · Coursera, Oct 2025
+- COVID19 Data Analysis Using Python · Coursera, Oct 2025
+- Python Project for Data Science · Coursera, Sep 2025
 - Python for Data Science, AI & Development
-- Python Project for Data Science
-- Linear Regression with Python

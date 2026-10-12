@@ -10,6 +10,7 @@ All five share one simulated grocery retailer ([`retail_sim/simulate.py`](retail
 | [Price optimisation](price-optimisation/) | What should shelf prices be within guardrails? | Shrinkage cuts elasticity error from RMSE 5.96 to 0.37; the price plan delivers +4.8% margin against true demand (92% of the oracle's +5.3%) |
 | [Customer lifetime value](customer-lifetime-value/) | Who will be worth what over the next 6 months? | BG/NBD + Gamma-Gamma: aggregate error 2.2% vs 182% for a run-rate baseline; top decile captures 62% of future spend |
 | [Need-state segmentation](need-state-segmentation/) | What missions do customers shop for? | LDA recovers the five need states (89% assignment accuracy) **and** each customer's mission mix (r = 0.90), which K-means cannot |
+| [L&D training bot](ld-training-bot/) | How do staff find and book live training without the LMS? | Re-creation of my Securitas bot: rolling 30-day calendar, enrol/unenrol; the cache cuts API calls 65% and removes "system busy" errors |
 | [Assortment & substitution](assortment-substitution/) | Which SKUs can be delisted safely? | A transfer-aware range review cuts revenue lost from an 18-SKU delist by 19% compared with cutting the lowest sellers |
 
 ## Run it
