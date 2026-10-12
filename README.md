@@ -1,15 +1,17 @@
 # Portsume
 
-Portfolio and resume of **Vishal Vaibhav**, Applied Data Scientist based in Gurugram, India.
+Portfolio and resume of **Vishal Vaibhav**, Applied Data Scientist in Gurugram, India.
 
 [LinkedIn](https://www.linkedin.com/in/vishal-vaibhav-634898155/)
 
-Applied Data Scientist focused on customer data science: modular ML pipelines, causal inference and GenAI-enhanced insights across multi-market deployments, with work on price, promotion and assortment optimization and customer lifetime value models.
+Applied Data Scientist at dunnhumby, working on customer and retail data science: price and promotion optimisation, assortment planning, customer segmentation and recommendations, with GenAI used to turn model output into decisions.
 
 ## What's here
 
-- `resume/` holds the resume source and exported PDF.
-- `site/` holds the portfolio website.
-- `projects/` holds write-ups of selected work.
+- [`docs/`](docs/) is the portfolio website (a single static page, served by GitHub Pages).
+- [`projects/`](projects/) holds five independent retail data science projects on synthetic data: promotion uplift, price optimisation, customer lifetime value, need-state segmentation and assortment substitution. Each has runnable code and results checked against ground truth.
+- [`resume/`](resume/) has the resume in Markdown.
 
-_This repository is being set up; the sections above will fill in as content is added._
+## Publish the site
+
+In the repository go to **Settings → Pages**, set the source to **Deploy from a branch**, and choose `main` with the `/docs` folder. The site will be live at `https://vishalvaibhav1210.github.io/portsume/`.

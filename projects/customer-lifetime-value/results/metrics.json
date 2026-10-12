@@ -1,0 +1,27 @@
+{
+  "n_customers": 6000,
+  "bgnbd_params": {
+    "r": 0.7627,
+    "alpha": 1.8315,
+    "a": 1.4552,
+    "b": 13.3662
+  },
+  "gamma_gamma_params": {
+    "p": 6.836,
+    "q": 5.988,
+    "gamma": 17.752
+  },
+  "holdout_trips_aggregate_error_pct": 1.1,
+  "clv_model": {
+    "wape": 0.659,
+    "top_decile_capture": 0.622,
+    "aggregate_error_pct": 2.2,
+    "spearman": 0.705
+  },
+  "naive_run_rate": {
+    "wape": 2.068,
+    "top_decile_capture": 0.489,
+    "aggregate_error_pct": 181.7,
+    "spearman": 0.408
+  }
+}

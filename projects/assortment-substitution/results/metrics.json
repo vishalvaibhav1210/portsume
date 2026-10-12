@@ -1,0 +1,23 @@
+{
+  "oos_events_used": 254,
+  "transfer_rate_mae": {
+    "raw": 0.21,
+    "shrunk": 0.183
+  },
+  "products_with_events": 104,
+  "range_review": {
+    "lowest_sales": {
+      "revenue_lost_pct": 2.17,
+      "products_delisted": 18
+    },
+    "transfer_aware": {
+      "revenue_lost_pct": 1.76,
+      "products_delisted": 18
+    },
+    "oracle": {
+      "revenue_lost_pct": 1.45,
+      "products_delisted": 18
+    }
+  },
+  "loss_reduction_vs_lowest_sales_pct": 18.9
+}

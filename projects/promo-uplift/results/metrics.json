@@ -1,0 +1,44 @@
+{
+  "holdout_wape_model": 0.133,
+  "holdout_wape_naive_mean": 0.306,
+  "param_recovery_corr": {
+    "elasticity": 0.777,
+    "pull_forward": 0.597,
+    "cannibalisation": 0.909
+  },
+  "n_promotions": 1488,
+  "net_share_of_gross": 0.746,
+  "share_promos_margin_negative": 0.82,
+  "by_depth": [
+    {
+      "depth": 0.1,
+      "gross_units": 191.9,
+      "net_units": 163.1,
+      "incremental_margin": 76.7
+    },
+    {
+      "depth": 0.2,
+      "gross_units": 204.9,
+      "net_units": 158.1,
+      "incremental_margin": -109.9
+    },
+    {
+      "depth": 0.25,
+      "gross_units": 223.8,
+      "net_units": 162.6,
+      "incremental_margin": -221.6
+    },
+    {
+      "depth": 0.33,
+      "gross_units": 245.2,
+      "net_units": 170.4,
+      "incremental_margin": -364.4
+    },
+    {
+      "depth": 0.4,
+      "gross_units": 310.3,
+      "net_units": 220.4,
+      "incremental_margin": -563.0
+    }
+  ]
+}

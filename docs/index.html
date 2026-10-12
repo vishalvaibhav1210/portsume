@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Vishal Vaibhav, Applied Data Scientist: retail pricing, promotions, assortment and customer value.">
+<title>Vishal Vaibhav Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column; impact figures set as shelf-edge price labels; projects as case files with question, method, result and chart. */
+:root {
+  --bg: #f6f8f7;
+  --surface: #ffffff;
+  --ink: #14211f;
+  --muted: #55625f;
+  --line: #d6dedb;
+  --accent: #0f6b5c;
+  --tag: #f2c94c;
+  --tag-ink: #1d1a0f;
+  --chart-bg: #ffffff;
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1716; --surface: #16211f; --ink: #e4ece9; --muted: #9db0ab; --line: #2a3a37;
+    --accent: #5cc8b2; --tag: #e8c14a; --tag-ink: #1d1a0f; --chart-bg: #f3f6f5; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1716; --surface: #16211f; --ink: #e4ece9; --muted: #9db0ab; --line: #2a3a37;
+  --accent: #5cc8b2; --tag: #e8c14a; --tag-ink: #1d1a0f; --chart-bg: #f3f6f5; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 980px; margin: 0 auto; padding-inline: 20px; padding-block: 48px 64px; display: grid; gap: 72px; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h2 { font-size: 1.75rem; font-weight: 700; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.label { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.section { display: grid; gap: 28px; }
+.section-head { display: grid; gap: 6px; }
+
+/* Hero */
+.hero { display: grid; gap: 22px; }
+.hero h1 { font-size: clamp(2.6rem, 7vw, 4.4rem); font-weight: 700; letter-spacing: -0.02em; }
+.hero .role { font-family: var(--font-display); font-size: clamp(1.15rem, 2.6vw, 1.5rem); font-weight: 500; color: var(--accent); }
+.hero .lede { max-width: 62ch; font-size: 1.1rem; color: var(--ink); }
+.links { display: flex; flex-wrap: wrap; gap: 10px 22px; font-family: var(--font-mono); font-size: 0.9rem; }
+
+/* Shelf-edge labels */
+.tags { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.tag { background: var(--tag); color: var(--tag-ink); padding: 14px 16px 12px; display: grid; gap: 4px; border-bottom: 6px solid rgba(0,0,0,0.18); }
+.tag .big { font-family: var(--font-display); font-size: 2.1rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.tag .what { font-size: 0.9rem; line-height: 1.4; }
+.tag .code { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; opacity: 0.75; }
+
+/* Experience */
+.job { display: grid; grid-template-columns: 200px 1fr; gap: 8px 32px; padding-block: 24px; border-top: 1px solid var(--line); }
+.job:first-of-type { border-top: 0; padding-top: 0; }
+.job .when { font-family: var(--font-mono); font-size: 0.85rem; color: var(--muted); }
+.job .body { display: grid; gap: 12px; min-width: 0; }
+.job .org { color: var(--muted); font-weight: 500; }
+.job ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; max-width: 70ch; }
+
+/* Projects */
+.note { max-width: 70ch; color: var(--muted); }
+.projects { display: grid; gap: 22px; }
+.case { background: var(--surface); border: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
+.case .text { padding: 26px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.case .q { font-size: 1.02rem; }
+.case dl { margin: 0; display: grid; gap: 10px; }
+.case dt { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.case dd { margin: 0; }
+.case .result { font-weight: 600; }
+.case figure { margin: 0; background: var(--chart-bg); display: flex; align-items: center; justify-content: center; padding: 14px; border-left: 1px solid var(--line); }
+.case figure img { width: 100%; height: auto; display: block; }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.stack span { font-family: var(--font-mono); font-size: 0.72rem; border: 1px solid var(--line); padding: 2px 8px; color: var(--muted); }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 36px; }
+.skills div { display: grid; gap: 6px; min-width: 0; }
+.skills h3 { font-size: 1rem; }
+.skills p { color: var(--muted); }
+.edu { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px 36px; }
+.edu div { display: grid; gap: 6px; }
+.edu ul { margin: 0; padding-left: 1.1em; color: var(--muted); }
+footer { border-top: 1px solid var(--line); padding-top: 22px; color: var(--muted); font-size: 0.9rem; display: grid; gap: 6px; }
+
+@media (max-width: 760px) {
+  .wrap { gap: 56px; padding-block: 32px 48px; padding-inline: 16px; }
+  .job { grid-template-columns: 1fr; }
+  .skills { grid-template-columns: 1fr; }
+  .case { grid-template-columns: 1fr; }
+  .case figure { border-left: 0; border-top: 1px solid var(--line); }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <span class="label">Portfolio · Gurugram, India</span>
+    <h1>Vishal Vaibhav</h1>
+    <p class="role">Applied Data Scientist, customer &amp; retail data science</p>
+    <p class="lede">I build the models behind retail pricing, promotion and assortment decisions and take them into production across markets. My work covers causal measurement of promotions, price optimisation, customer segmentation and recommendations, with GenAI used to turn model output into decisions people act on.</p>
+    <nav class="links" aria-label="Profiles">
+      <a href="https://www.linkedin.com/in/vishal-vaibhav-634898155/">LinkedIn</a>
+      <a href="https://github.com/vishalvaibhav1210/portsume">GitHub · portsume</a>
+      <a href="#projects">Projects</a>
+    </nav>
+  </header>
+
+  <section class="section" aria-labelledby="impact-h">
+    <div class="section-head">
+      <span class="label">At dunnhumby</span>
+      <h2 id="impact-h">Impact</h2>
+    </div>
+    <div class="tags">
+      <div class="tag"><span class="code">PROMO-OPT · SLA</span><span class="big">−70%</span><span class="what">delivery SLA after modularising the promotion-optimisation system</span></div>
+      <div class="tag"><span class="code">PRICE · INVEST</span><span class="big">Earlier</span><span class="what">scenario screening through incremental unit-impact logging</span></div>
+      <div class="tag"><span class="code">DEMAND · SPARK</span><span class="big">Multi-market</span><span class="what">demand-parameter precompute pipeline, run in-house</span></div>
+      <div class="tag"><span class="code">GENAI · BRIEFS</span><span class="big">LLM</span><span class="what">summaries that turn model output into executive decision briefs</span></div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="exp-h">
+    <div class="section-head">
+      <span class="label">Experience</span>
+      <h2 id="exp-h">Where I've worked</h2>
+    </div>
+    <div>
+      <article class="job">
+        <div class="when">Nov 2023 – Present<br>Gurugram</div>
+        <div class="body">
+          <h3>Applied Data Scientist <span class="org">· dunnhumby</span></h3>
+          <p>Technical Solutions owner for price optimisation, promotion analytics and assortment planning. I own solution enhancements, production deployment and multi-market scaling, and I translate commercial requirements into decisioning systems.</p>
+          <ul>
+            <li>Modularised a promotion-optimisation system covering incremental sales, baseline, promo effect, stockpiling and cannibalisation. It now evaluates scenarios from weekly promo recommendations through category cross-effects to portfolio investment. Delivery SLA fell by 70%.</li>
+            <li>Added incremental unit-impact logging and runtime improvements to price and investment optimisation, so teams can screen scenarios before a full run completes.</li>
+            <li>Built a multi-market demand-parameter precompute pipeline with automated ingestion, Spark processing and modular ETL orchestration.</li>
+            <li>Embedded data validation into model input pipelines (time-window completeness, schema consistency, quality guardrails), which cut downstream QA rework.</li>
+            <li>Engineered a product recommendation engine that combines substitution and adjacency logic, topic modelling, customer segmentation and seasonal patterns for agentic commerce workflows.</li>
+            <li>Developed ML pipelines (Lasso, logistic regression, LDA) for promotion analytics and segmentation, with LLM summarisation of the results for executives.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="job">
+        <div class="when">Jan 2023 – Nov 2023<br>Gurugram</div>
+        <div class="body">
+          <h3>Manager, LMS &amp; Content <span class="org">· Securitas Group</span></h3>
+          <ul>
+            <li>Built a chatbot (Node.js, Microsoft Bot Framework) on the LearnUpon API for on-demand training discovery and registration.</li>
+            <li>Designed a back-end caching layer that works around API rate limits, projected to save hundreds of admin hours a year.</li>
+            <li>Analysed participation data and built reporting on programme effectiveness.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="projects" aria-labelledby="proj-h">
+    <div class="section-head">
+      <span class="label">Independent projects</span>
+      <h2 id="proj-h">Retail data science, end to end</h2>
+    </div>
+    <p class="note">Five personal projects on a simulated grocery retailer: 120 products, 104 weeks and 6,000 loyalty customers. The data is synthetic and none of this is client work. Because the simulator knows the true elasticities, churn and transfer rates, every method is checked against ground truth as well as a holdout. All code is <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects">on GitHub</a> and reproduces these numbers exactly.</p>
+
+    <div class="projects">
+      <article class="case">
+        <div class="text">
+          <span class="label">Promotions</span>
+          <h3>Promotion uplift decomposition</h3>
+          <p class="q">A promotion sold 300 extra units. How many were genuinely new to the business?</p>
+          <dl>
+            <div><dt>Method</dt><dd>Per-product log-linear demand model with seasonality, price, promo, display, post-promo dip and cannibalisation terms. Each of 1,488 promotions is split into gross lift, cannibalised, pulled-forward and net units.</dd></div>
+            <div><dt>Result</dt><dd class="result">25% of gross promo volume isn't incremental. 82% of promotions lose margin, and every depth beyond 10% off is margin-negative on average.</dd></div>
+          </dl>
+          <div class="stack"><span>ridge regression</span><span>causal decomposition</span><span>WAPE 13.3%</span></div>
+          <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/promo-uplift">Code and write-up</a>
+        </div>
+        <figure><img src="assets/promo_waterfall.png" alt="Waterfall chart: gross promotional lift reduced by cannibalisation and pull-forward to net incremental units"></figure>
+      </article>
+
+      <article class="case">
+        <div class="text">
+          <span class="label">Pricing</span>
+          <h3>Elasticity shrinkage and price optimisation</h3>
+          <p class="q">Where can shelf prices move to grow margin without hurting revenue or price perception?</p>
+          <dl>
+            <div><dt>Method</dt><dd>Per-product elasticities from regular-price weeks, shrunk toward category means with empirical Bayes. SLSQP then optimises within ±10% price moves, a revenue floor and a price-index cap, and the plan is scored against true demand.</dd></div>
+            <div><dt>Result</dt><dd class="result">Elasticity error falls from RMSE 5.96 to 0.37. The plan earns +4.8% margin, 92% of what perfect knowledge would deliver.</dd></div>
+          </dl>
+          <div class="stack"><span>empirical Bayes</span><span>constrained optimisation</span><span>scipy</span></div>
+          <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/price-optimisation">Code and write-up</a>
+        </div>
+        <figure><img src="assets/elasticity_shrinkage.png" alt="Two scatter plots comparing raw and shrunk elasticity estimates against true elasticity"></figure>
+      </article>
+
+      <article class="case">
+        <div class="text">
+          <span class="label">Customer value</span>
+          <h3>Customer lifetime value</h3>
+          <p class="q">Who will be worth the most over the next six months, and what will the whole base spend?</p>
+          <dl>
+            <div><dt>Method</dt><dd>BG/NBD for purchase rate and silent churn, plus Gamma-Gamma for spend, both fitted by maximum likelihood from scratch. Trained on 78 weeks and tested on the next 26.</dd></div>
+            <div><dt>Result</dt><dd class="result">Aggregate spend forecast within 2.2%, against +182% for a run-rate baseline. The top decile captures 62% of future spend.</dd></div>
+          </dl>
+          <div class="stack"><span>BG/NBD</span><span>Gamma-Gamma</span><span>MLE</span></div>
+          <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/customer-lifetime-value">Code and write-up</a>
+        </div>
+        <figure><img src="assets/clv_calibration.png" alt="Line chart of actual versus predicted holdout trips by calibration frequency"></figure>
+      </article>
+
+      <article class="case">
+        <div class="text">
+          <span class="label">Customer understanding</span>
+          <h3>Need-state segmentation with LDA</h3>
+          <p class="q">What missions do customers shop for, and how does each customer mix them?</p>
+          <dl>
+            <div><dt>Method</dt><dd>Latent Dirichlet Allocation over customer × subcategory purchases, compared with K-means and checked against the true need states.</dd></div>
+            <div><dt>Result</dt><dd class="result">Recovers five need states with 89% accuracy, and each customer's mission mix at r = 0.90, which hard clustering can't give. 54% of customers have a meaningful second mission.</dd></div>
+          </dl>
+          <div class="stack"><span>topic modelling</span><span>segmentation</span><span>scikit-learn</span></div>
+          <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/need-state-segmentation">Code and write-up</a>
+        </div>
+        <figure><img src="assets/need_states.png" alt="Heatmap of five need states against 24 subcategories"></figure>
+      </article>
+
+      <article class="case">
+        <div class="text">
+          <span class="label">Assortment</span>
+          <h3>Demand transferability for range reviews</h3>
+          <p class="q">If 15% of SKUs go, which can be delisted without losing the sales?</p>
+          <dl>
+            <div><dt>Method</dt><dd>Out-of-stock weeks used as natural experiments to measure how much demand moves to sibling products, with shrinkage toward subcategory rates. Delist choices are scored with true transfer.</dd></div>
+            <div><dt>Result</dt><dd class="result">A transfer-aware delist loses 19% less revenue than cutting the lowest sellers, closing 57% of the gap to the oracle.</dd></div>
+          </dl>
+          <div class="stack"><span>natural experiments</span><span>demand transfer</span><span>range review</span></div>
+          <a href="https://github.com/vishalvaibhav1210/portsume/tree/main/projects/assortment-substitution">Code and write-up</a>
+        </div>
+        <figure><img src="assets/transfer_rates.png" alt="Scatter plot of estimated versus true demand transfer rates"></figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="skills-h">
+    <div class="section-head">
+      <span class="label">Toolkit</span>
+      <h2 id="skills-h">Skills</h2>
+    </div>
+    <div class="skills">
+      <div><h3>Retail &amp; customer science</h3><p>Price and promotion optimisation, causal inference, demand forecasting, customer lifetime value, segmentation, recommendation systems, assortment planning</p></div>
+      <div><h3>Machine learning</h3><p>Regression and classification (Lasso, logistic), topic modelling (LDA), unsupervised learning, empirical Bayes, feature engineering</p></div>
+      <div><h3>Data engineering</h3><p>Python, SQL, PySpark, pandas, NumPy; ETL, workflow orchestration, modular and config-driven systems, data validation, logging and monitoring</p></div>
+      <div><h3>GenAI</h3><p>LLM summarisation of model output, agentic commerce workflows, conversational bots (Node.js, Microsoft Bot Framework, Oracle Digital Assistant)</p></div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="edu-h">
+    <div class="section-head">
+      <span class="label">Background</span>
+      <h2 id="edu-h">Education &amp; certifications</h2>
+    </div>
+    <div class="edu">
+      <div><h3>Birla Institute of Technology, Mesra</h3><p>B.E. Mechanical Engineering, 2017 – 2021<br>83.9%, First Class with Distinction</p></div>
+      <div><h3>Certifications</h3><ul><li>Supervised Machine Learning: Regression and Classification</li><li>Python for Data Science, AI &amp; Development</li><li>Python Project for Data Science</li><li>Linear Regression with Python</li></ul></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Vishal Vaibhav · Applied Data Scientist · Gurugram, India</p>
+    <p>Projects are independent work on synthetic data. Experience reflects my own roles; client details are not shared.</p>
+  </footer>
+</main>
+</body>
+</html>

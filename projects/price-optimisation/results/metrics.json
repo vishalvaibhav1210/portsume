@@ -1,0 +1,31 @@
+{
+  "elasticity_rmse": {
+    "raw": 5.964,
+    "shrunk": 0.368
+  },
+  "optimisation_scored_on_true_demand": [
+    {
+      "elasticity_source": "raw",
+      "margin_uplift_pct": 3.89,
+      "revenue_change_pct": -0.34
+    },
+    {
+      "elasticity_source": "shrunk",
+      "margin_uplift_pct": 4.81,
+      "revenue_change_pct": -0.64
+    },
+    {
+      "elasticity_source": "true_elasticity",
+      "margin_uplift_pct": 5.25,
+      "revenue_change_pct": -0.31
+    }
+  ],
+  "constraints": {
+    "price_move": [
+      0.9,
+      1.1
+    ],
+    "min_revenue_ratio": 0.99,
+    "max_price_index": 1.02
+  }
+}

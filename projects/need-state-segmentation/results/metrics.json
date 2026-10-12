@@ -1,0 +1,55 @@
+{
+  "n_customers": 4861,
+  "adjusted_rand_index": {
+    "lda": 0.744,
+    "kmeans_shares": 0.737
+  },
+  "lda_assignment_accuracy": 0.889,
+  "mission_mix_mae": 0.076,
+  "mission_mix_corr": 0.897,
+  "share_customers_second_mission_20pct_plus": 0.539,
+  "segment_sizes": {
+    "Fresh & Healthy": 0.232,
+    "Family Stock-up": 0.22,
+    "Convenience": 0.206,
+    "Home Essentials": 0.204,
+    "Premium Indulgence": 0.139
+  },
+  "top_subcategories": {
+    "Convenience": [
+      "Pizza",
+      "Chilled Meals",
+      "Frozen Meals",
+      "Soft Drinks",
+      "Crisps"
+    ],
+    "Home Essentials": [
+      "Morning Goods",
+      "Laundry",
+      "Paper",
+      "Cleaning",
+      "Biscuits"
+    ],
+    "Premium Indulgence": [
+      "Chocolate",
+      "Coffee & Tea",
+      "Cheese",
+      "Red Meat",
+      "Cakes"
+    ],
+    "Fresh & Healthy": [
+      "Salads",
+      "Fish",
+      "Fruit",
+      "Vegetables",
+      "Yogurt"
+    ],
+    "Family Stock-up": [
+      "Biscuits",
+      "Milk",
+      "Poultry",
+      "Bread",
+      "Juice"
+    ]
+  }
+}
