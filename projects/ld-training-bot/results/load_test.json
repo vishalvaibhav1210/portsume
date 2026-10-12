@@ -1,0 +1,21 @@
+{
+  "without_cache": {
+    "messages": 1200,
+    "apiCalls": 1192,
+    "busyReplies": 317,
+    "booked": 179
+  },
+  "with_cache": {
+    "messages": 1200,
+    "apiCalls": 416,
+    "busyReplies": 0,
+    "booked": 207,
+    "stats": {
+      "hits": 1184,
+      "staleServes": 15,
+      "misses": 1,
+      "refreshErrors": 0
+    }
+  },
+  "api_call_reduction_pct": 65
+}
