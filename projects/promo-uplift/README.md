@@ -12,6 +12,7 @@
 - Recovered parameters correlate with the simulator's truth: cannibalisation r = **0.91**, elasticity r = **0.78**, pull-forward r = **0.60**.
 - Only **75%** of gross promotional volume is truly incremental.
 - **82%** of promotions lose margin. 10%-off deals are margin-positive on average (+77 per event), and every deeper discount is negative, down to −563 at 40% off.
+- That verdict depends on who pays for the discount. With 30% supplier funding, 70% of promotions still lose margin; with 50% funding, 52% do.
 - Display support adds 65% more net units per event and loses less margin than price-only promos.
 
 ![Promo waterfall](results/promo_waterfall.png)

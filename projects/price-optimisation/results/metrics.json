@@ -3,6 +3,14 @@
     "raw": 5.964,
     "shrunk": 0.368
   },
+  "elasticity_median_abs_error": {
+    "raw": 0.453,
+    "shrunk": 0.245
+  },
+  "share_wrong_sign": {
+    "raw": 0.092,
+    "shrunk": 0.0
+  },
   "optimisation_scored_on_true_demand": [
     {
       "elasticity_source": "raw",

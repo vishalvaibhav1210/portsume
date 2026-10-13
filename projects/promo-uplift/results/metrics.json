@@ -9,6 +9,11 @@
   "n_promotions": 1488,
   "net_share_of_gross": 0.746,
   "share_promos_margin_negative": 0.82,
+  "share_margin_negative_by_supplier_funding": {
+    "0pct_funded": 0.82,
+    "30pct_funded": 0.698,
+    "50pct_funded": 0.523
+  },
   "by_depth": [
     {
       "depth": 0.1,

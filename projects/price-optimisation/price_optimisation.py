@@ -129,7 +129,10 @@ def main() -> None:
     fig.tight_layout()
     fig.savefig(OUT / "elasticity_shrinkage.png", dpi=150)
 
+    medae = {k: round(float((est[k] - est["true_elasticity"]).abs().median()), 3) for k in ["raw", "shrunk"]}
+    wrong_sign = {k: round(float((est[k] >= 0).mean()), 3) for k in ["raw", "shrunk"]}
     metrics = {"elasticity_rmse": {k: round(v, 3) for k, v in rmse.items()},
+               "elasticity_median_abs_error": medae, "share_wrong_sign": wrong_sign,
                "optimisation_scored_on_true_demand": results,
                "constraints": {"price_move": BOUNDS, "min_revenue_ratio": MIN_REVENUE_RATIO,
                                "max_price_index": MAX_PRICE_INDEX}}

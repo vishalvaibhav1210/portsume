@@ -17,6 +17,7 @@
 | Oracle (true elasticities) | +5.3% | −0.3% |
 
 - Elasticity RMSE against the truth falls from **5.96** to **0.37** after shrinkage.
+- RMSE is dominated by a few wild raw estimates, so the robust view: median absolute error falls from **0.45** to **0.25**, and wrong-sign (upward-sloping) elasticities fall from **9.2%** of products to **0**.
 - The shrunk plan captures **92%** of the oracle's margin gain, against 74% with raw estimates.
 
 ![Elasticity shrinkage](results/elasticity_shrinkage.png)

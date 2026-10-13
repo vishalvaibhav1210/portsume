@@ -72,7 +72,10 @@ def main() -> None:
         promo_price = ev["price"]
         margin = (gross - pull) * (promo_price - cost) - ev["baseline"] * (ev["shelf_price"] - promo_price) \
             - canni * (reg - cost)
+        # Discount money paid on every unit sold in the promo week; suppliers often fund part of it.
+        discount_cost = (ev["baseline"] + gross) * (ev["shelf_price"] - promo_price)
         rows.append(dict(product_id=pid, week=wk, depth=d, display=ev["display"], gross_units=gross,
+                         discount_cost=discount_cost,
                          cannibalised_units=canni, pull_forward_units=pull,
                          net_units=gross - canni - pull, incremental_margin=margin))
     dec = pd.DataFrame(rows)
@@ -80,6 +83,9 @@ def main() -> None:
 
     by_depth = dec.groupby("depth")[["gross_units", "net_units", "incremental_margin"]].mean().round(1)
     share_negative = float((dec["incremental_margin"] < 0).mean())
+    # The verdict depends on who pays for the discount: re-score with supplier funding.
+    funding = {f"{int(f * 100)}pct_funded": round(float(((dec["incremental_margin"] + f * dec["discount_cost"]) < 0).mean()), 3)
+               for f in (0.0, 0.3, 0.5)}
     totals = dec[["gross_units", "cannibalised_units", "pull_forward_units", "net_units"]].sum()
 
     # Waterfall chart of total promo volume.
@@ -106,6 +112,7 @@ def main() -> None:
         "n_promotions": int(len(dec)),
         "net_share_of_gross": round(float(totals["net_units"] / totals["gross_units"]), 3),
         "share_promos_margin_negative": round(share_negative, 3),
+        "share_margin_negative_by_supplier_funding": funding,
         "by_depth": by_depth.reset_index().to_dict(orient="records"),
     }
     (OUT / "metrics.json").write_text(json.dumps(metrics, indent=2))
