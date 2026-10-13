@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vishal Vaibhav CV</title>
+<!-- Source for docs/cv.pdf. Render with: node resume/render_cv.js -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+@page { size: A4; margin: 11mm 14mm 9mm; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 9.1pt/1.38 Geist, system-ui, sans-serif; color: #17181b; }
+a { color: inherit; text-decoration: none; }
+header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; padding-bottom: 10px; border-bottom: 2px solid #17181b; }
+h1 { font: 800 26pt/1 Archivo, sans-serif; font-stretch: 108%; letter-spacing: -0.03em; margin: 0; }
+h1 span { color: #c42038; }
+.role { font: 600 11pt Geist, sans-serif; margin-top: 4px; }
+.links { text-align: right; white-space: nowrap; font: 8.4pt/1.6 "Geist Mono", monospace; color: #474b53; }
+.links b { color: #17181b; font-weight: 500; }
+h2 { font: 700 8pt "Geist Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: #c42038; margin: 10px 0 4px; }
+p { margin: 0 0 6px; }
+.job { margin-bottom: 8px; }
+.jh { display: flex; justify-content: space-between; align-items: baseline; }
+.jh strong { font: 700 10.5pt Archivo, sans-serif; font-stretch: 100%; }
+.jh span { font: 8.4pt "Geist Mono", monospace; color: #5e626b; }
+.sub { color: #474b53; margin: 1px 0 4px; }
+ul { margin: 0; padding-left: 14px; }
+li { margin: 0 0 2px; }
+li b, p b { font-weight: 600; }
+.studies li { margin-bottom: 2px; }
+.num { font-family: "Geist Mono", monospace; font-weight: 500; color: #c42038; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 22px; }
+dl { margin: 0; display: grid; grid-template-columns: 92px 1fr; gap: 3px 10px; }
+dt { font-weight: 600; }
+dd { margin: 0; color: #303339; }
+.note { font-size: 8.2pt; color: #5e626b; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Vishal Vaibhav<span>.</span></h1>
+    <div class="role">Applied Data Scientist · Retail pricing, promotion &amp; customer analytics</div>
+  </div>
+  <div class="links">
+    <a href="mailto:vishalvaibhav121099@gmail.com"><b>vishalvaibhav121099@gmail.com</b></a><br>
+    <a href="https://vishalvaibhav1210.github.io/portsume/">vishalvaibhav1210.github.io/portsume</a><br>
+    <a href="https://www.linkedin.com/in/vishal-vaibhav-634898155/">linkedin.com/in/vishal-vaibhav-634898155</a><br>
+    Gurugram, India
+  </div>
+</header>
+
+<h2>Profile</h2>
+<p>Applied data scientist on dunnhumby's Technical Solutions team, owning the price, promotion and assortment solutions that retailers use to make weekly commercial decisions. I take models from commercial question to multi-market production: demand and promotion modelling, constrained optimisation, Spark pipelines with data-quality guardrails, and LLM summaries that turn model output into decisions.</p>
+
+<h2>Experience</h2>
+<div class="job">
+  <div class="jh"><strong>Applied Data Scientist · dunnhumby</strong><span>Nov 2023 – present · Gurugram</span></div>
+  <div class="sub">Technical owner for price optimisation, promotion analytics and assortment planning: enhancements, production deployment and multi-market scaling.</div>
+  <ul>
+    <li>Rebuilt a promotion-optimisation system (baseline, promo effect, stockpiling, cannibalisation) as modules with distributed execution, running from weekly promo recommendations up to portfolio investment optimisation; <b>cut delivery SLA by 70%</b>.</li>
+    <li>Added incremental unit-impact logging and runtime improvements to price and investment optimisation, so teams screen scenarios before full runs finish.</li>
+    <li>Built a multi-market demand-parameter precompute pipeline (automated ingestion, Spark, modular ETL orchestration), removing a dependency on external execution teams.</li>
+    <li>Embedded data validation (time-window completeness, schema consistency, quality guardrails) into model input pipelines, reducing downstream QA rework.</li>
+    <li>Engineered a product recommendation engine combining substitution and adjacency logic, LDA topic models, customer segments and seasonality for agentic commerce workflows.</li>
+    <li>Developed training pipelines (Lasso, logistic regression, LDA) for promotion analytics and segmentation, with LLM summaries that turn model output into executive decision briefs.</li>
+  </ul>
+</div>
+<div class="job">
+  <div class="jh"><strong>Manager, LMS &amp; Content · Securitas Group</strong><span>Jan – Nov 2023 · Gurugram</span></div>
+  <ul>
+    <li>Designed and built a Teams chatbot (Node.js, Bot Framework) on the LearnUpon LMS API: a rolling 30-day training calendar where staff register, enrol and unenrol in courses and certifications from chat.</li>
+    <li>Built the caching layer that kept the bot responsive under LMS API rate limits; analysed participation data and built reporting on programme effectiveness.</li>
+  </ul>
+</div>
+
+<h2>Independent simulation studies <span class="note" style="text-transform:none;letter-spacing:0;font-family:Geist;color:#5e626b">· synthetic grocery retailer, scored against ground truth, not client work · code on GitHub</span></h2>
+<ul class="studies">
+  <li><b>Price optimisation.</b> Empirical-Bayes shrinkage of per-product elasticities plus SLSQP under ±10% guardrails captures <span class="num">92%</span> of the oracle's margin gain (raw estimates: 74%); wrong-sign elasticities fall from 9% to 0.</li>
+  <li><b>Promotion uplift.</b> Decomposed 1,488 promotions into gross lift, cannibalisation and pull-forward; only <span class="num">10%</span>-off deals add margin on average, with supplier-funding sensitivity reported.</li>
+  <li><b>Range review.</b> Demand transfer estimated from out-of-stock weeks loses <span class="num">19%</span> less revenue than delisting the lowest sellers.</li>
+  <li><b>Customer lifetime value.</b> BG/NBD and Gamma-Gamma fitted by MLE from scratch; the model's top decile captures <span class="num">62%</span> of next half-year spend (run-rate: 49%).</li>
+  <li><b>Need states.</b> LDA on baskets recovers each shopper's mission mix (r = <span class="num">0.90</span>) and finds 54% have a real second mission.</li>
+</ul>
+
+<div class="grid">
+  <div>
+    <h2>Skills</h2>
+    <dl>
+      <dt>Retail science</dt><dd>Elasticity &amp; price optimisation, promotion uplift, forecasting, CLV, segmentation, assortment, recommendations</dd>
+      <dt>Methods</dt><dd>Regularised regression, Bayesian shrinkage, BG/NBD, LDA, constrained optimisation, test design</dd>
+      <dt>Data &amp; eng.</dt><dd>Python, SQL, PySpark, pandas, NumPy, scikit-learn, SciPy, ETL orchestration, data validation, Node.js</dd>
+      <dt>GenAI</dt><dd>LLM summaries of model output, agentic commerce workflows, conversational bots</dd>
+    </dl>
+  </div>
+  <div>
+    <h2>Education</h2>
+    <p><b>B.E., Birla Institute of Technology, Mesra</b><br>2017 – 2021 · First Class with Distinction</p>
+    <h2>Certifications</h2>
+    <p>Supervised Machine Learning: Regression and Classification · DeepLearning.AI, 2025<br>
+    Linear Regression with Python · Coursera, 2025<br>
+    Python Project for Data Science · Coursera, 2025</p>
+  </div>
+</div>
+</body>
+</html>

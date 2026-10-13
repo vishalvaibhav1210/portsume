@@ -10,7 +10,7 @@ Applied Data Scientist at dunnhumby, working on customer and retail data science
 
 - [`docs/`](docs/) is the portfolio website (a single static page, served by GitHub Pages).
 - [`projects/`](projects/) holds the L&D training bot (a re-creation of my Securitas work project) and five independent retail data science projects on synthetic data: promotion uplift, price optimisation, customer lifetime value, need-state segmentation and assortment substitution. Each has runnable code and results checked against ground truth.
-- [`resume/`](resume/) has the resume in Markdown.
+- [`resume/`](resume/) has the resume in Markdown and the one-page CV source (`cv.html`); `node resume/render_cv.js` renders it to `docs/cv.pdf`.
 
 ## Publish the site
 

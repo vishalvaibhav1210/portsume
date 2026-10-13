@@ -1,6 +1,6 @@
 # Vishal Vaibhav
 
-**Applied Data Scientist** · Gurugram, India · [LinkedIn](https://www.linkedin.com/in/vishal-vaibhav-634898155/)
+**Applied Data Scientist** · Gurugram, India · [vishalvaibhav121099@gmail.com](mailto:vishalvaibhav121099@gmail.com) · [LinkedIn](https://www.linkedin.com/in/vishal-vaibhav-634898155/) · [CV (PDF)](https://vishalvaibhav1210.github.io/portsume/cv.pdf)
 
 ## Summary
 
